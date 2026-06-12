@@ -45,7 +45,7 @@ export default function AudioPlayer({ sentence }: { sentence: string }) {
         )}
       </button>
       <div className="min-w-0">
-        <p className="text-sm font-medium text-slate-900">
+        <p className="text-sm font-normal text-slate-600">
           {isPlaying
             ? "Playing..."
             : !hasPlayed

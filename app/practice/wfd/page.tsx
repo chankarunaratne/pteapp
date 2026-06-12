@@ -88,7 +88,7 @@ export default function WfdSessionPage() {
       </div>
 
       <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <p className="text-sm font-medium text-slate-900">
+        <p className="text-base font-medium text-slate-700">
           Press play when you&apos;re ready to hear a sentence. Type the
           sentence exactly as you hear it.{" "}
           <InfoPopover align="right">
