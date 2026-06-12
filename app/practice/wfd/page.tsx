@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import InfoPopover from "@/components/InfoPopover";
 import AudioPlayer from "@/components/wfd/AudioPlayer";
 import FeedbackPanel from "@/components/wfd/FeedbackPanel";
 import WordDiff from "@/components/wfd/WordDiff";
@@ -88,15 +89,16 @@ export default function WfdSessionPage() {
 
       <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <p className="text-sm font-medium text-slate-900">
-          You will hear a sentence. Type the sentence exactly as you hear it.
-        </p>
-        <p className="sinhala mt-1 text-sm text-slate-500">
-          ඔබට වාක්‍යයක් ඇහෙයි. ඇහෙන විදිහටම ඒ වාක්‍යය පහළ කොටුවේ ලියන්න. අකුරු
-          වැරදුණොත් ලකුණු අඩු වෙනවා.
+          Press play when you&apos;re ready to hear a sentence. Type the
+          sentence exactly as you hear it.{" "}
+          <InfoPopover align="right">
+            සූදානම් වුණාම play බොත්තම ඔබන්න — වාක්‍යය ඇහෙයි. ඇහෙන විදිහටම ඒ
+            වාක්‍යය පහළ කොටුවේ ලියන්න. අකුරු වැරදුණොත් ලකුණු අඩු වෙනවා.
+          </InfoPopover>
         </p>
 
         <div className="mt-5">
-          {/* Remount per question so auto-play and replay count reset */}
+          {/* Remount per question so play and replay count reset */}
           <AudioPlayer key={question.id} sentence={question.sentence} />
         </div>
 

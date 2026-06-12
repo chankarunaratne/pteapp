@@ -5,13 +5,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export const MAX_REPLAYS = 2;
 
 interface UseTtsResult {
-  /** Plays the sentence. Counts against replays unless it's the auto-play. */
+  /** Plays the sentence. Counts against replays after the first manual play. */
   play: () => void;
   isPlaying: boolean;
-  /** Replays remaining after the initial auto-play. */
+  /** Replays remaining after the first play. */
   replaysLeft: number;
-  /** Whether the initial auto-play has happened. */
-  hasAutoPlayed: boolean;
+  /** Whether the user has played the sentence at least once. */
+  hasPlayed: boolean;
   supported: boolean;
 }
 
@@ -26,13 +26,13 @@ function pickVoice(): SpeechSynthesisVoice | null {
 }
 
 /**
- * Browser TTS for one WFD question. Auto-plays once on mount, then allows
- * up to MAX_REPLAYS manual replays. State resets when `sentence` changes.
+ * Browser TTS for one WFD question. Plays on manual request, then allows
+ * up to MAX_REPLAYS replays. State resets when `sentence` changes.
  */
 export function useTts(sentence: string): UseTtsResult {
   const [isPlaying, setIsPlaying] = useState(false);
   const [replaysLeft, setReplaysLeft] = useState(MAX_REPLAYS);
-  const [hasAutoPlayed, setHasAutoPlayed] = useState(false);
+  const [hasPlayed, setHasPlayed] = useState(false);
   const [supported, setSupported] = useState(true);
   const sentenceRef = useRef(sentence);
   sentenceRef.current = sentence;
@@ -50,38 +50,31 @@ export function useTts(sentence: string): UseTtsResult {
     synth.speak(utterance);
   }, []);
 
-  // Reset + auto-play once per question.
+  // Reset state once per question.
   useEffect(() => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) {
       setSupported(false);
       return;
     }
     setReplaysLeft(MAX_REPLAYS);
-    setHasAutoPlayed(false);
-
-    // Voices may load asynchronously; wait briefly so a proper English
-    // voice is used for the auto-play.
-    let cancelled = false;
-    const autoPlay = () => {
-      if (cancelled) return;
-      setHasAutoPlayed(true);
-      speak();
-    };
-    const timer = window.setTimeout(autoPlay, 400);
+    setHasPlayed(false);
 
     return () => {
-      cancelled = true;
-      window.clearTimeout(timer);
       window.speechSynthesis.cancel();
       setIsPlaying(false);
     };
-  }, [sentence, speak]);
+  }, [sentence]);
 
   const play = useCallback(() => {
-    if (!supported || isPlaying || replaysLeft <= 0) return;
-    setReplaysLeft((n) => n - 1);
+    if (!supported || isPlaying) return;
+    if (hasPlayed && replaysLeft <= 0) return;
+    if (hasPlayed) {
+      setReplaysLeft((n) => n - 1);
+    } else {
+      setHasPlayed(true);
+    }
     speak();
-  }, [supported, isPlaying, replaysLeft, speak]);
+  }, [supported, isPlaying, hasPlayed, replaysLeft, speak]);
 
-  return { play, isPlaying, replaysLeft, hasAutoPlayed, supported };
+  return { play, isPlaying, replaysLeft, hasPlayed, supported };
 }

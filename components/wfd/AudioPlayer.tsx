@@ -1,9 +1,11 @@
 "use client";
 
+import InfoPopover from "@/components/InfoPopover";
 import { useTts, MAX_REPLAYS } from "@/lib/useTts";
 
 export default function AudioPlayer({ sentence }: { sentence: string }) {
-  const { play, isPlaying, replaysLeft, supported } = useTts(sentence);
+  const { play, isPlaying, replaysLeft, hasPlayed, supported } =
+    useTts(sentence);
 
   if (!supported) {
     return (
@@ -17,20 +19,20 @@ export default function AudioPlayer({ sentence }: { sentence: string }) {
     );
   }
 
-  const canReplay = replaysLeft > 0 && !isPlaying;
+  const canPlay = !isPlaying && (!hasPlayed || replaysLeft > 0);
 
   return (
     <div className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4">
       <button
         type="button"
         onClick={play}
-        disabled={!canReplay}
+        disabled={!canPlay}
         className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition ${
-          canReplay
+          canPlay
             ? "bg-brand-500 text-white hover:bg-brand-600"
             : "cursor-not-allowed bg-slate-200 text-slate-400"
         }`}
-        aria-label="Replay audio"
+        aria-label={hasPlayed ? "Replay audio" : "Play audio"}
       >
         {isPlaying ? (
           <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
@@ -46,17 +48,23 @@ export default function AudioPlayer({ sentence }: { sentence: string }) {
         <p className="text-sm font-medium text-slate-900">
           {isPlaying
             ? "Playing..."
-            : replaysLeft > 0
-              ? "Replay audio"
-              : "No replays left"}
+            : !hasPlayed
+              ? "Press play when you're ready"
+              : replaysLeft > 0
+                ? "Replay audio"
+                : "No replays left"}{" "}
+          <InfoPopover>
+            {!hasPlayed
+              ? "සූදානම් වුණාම play ඔබන්න — පසුව තවත් වතාවන් දෙකක් අහන්න පුළුවන්"
+              : replaysLeft > 0
+                ? `ඔබට තව වතාවන් ${replaysLeft}ක් අහන්න පුළුවන්`
+                : "තවත් අහන්න බැහැ — දැන් ලියන්න"}
+          </InfoPopover>
         </p>
         <p className="text-xs text-slate-500">
-          {replaysLeft} of {MAX_REPLAYS} replays left
-        </p>
-        <p className="sinhala mt-0.5 text-xs text-slate-500">
-          {replaysLeft > 0
-            ? `ඔබට තව වතාවන් ${replaysLeft}ක් අහන්න පුළුවන්`
-            : "තවත් අහන්න බැහැ — දැන් ලියන්න"}
+          {!hasPlayed
+            ? `Up to ${MAX_REPLAYS} replays after you listen`
+            : `${replaysLeft} of ${MAX_REPLAYS} replays left`}
         </p>
       </div>
     </div>
