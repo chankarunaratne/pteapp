@@ -8,6 +8,7 @@ import FeedbackPanel from "@/components/wfd/FeedbackPanel";
 import WordDiff from "@/components/wfd/WordDiff";
 import type { FeedbackLang } from "@/lib/feedback";
 import { WFD_QUESTIONS } from "@/lib/questions";
+import { COUNTDOWN_SECONDS } from "@/lib/useTts";
 import { scoreAnswer, type ScoreResult } from "@/lib/scoring";
 
 const LANG_STORAGE_KEY = "ptelanka-feedback-lang";
@@ -63,18 +64,13 @@ export default function WfdSessionPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
-            Listening · Write From Dictation
-          </p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight">
-            Question {index + 1} of {WFD_QUESTIONS.length}
-          </h1>
-        </div>
-        <span className="rounded-full bg-slate-200 px-3 py-1 text-xs font-semibold capitalize text-slate-600">
-          {question.difficulty}
-        </span>
+      <p className="text-center text-sm font-normal text-slate-400">
+        Listening · Write From Dictation
+      </p>
+      <div className="mt-4 flex items-center justify-between">
+        <h1 className="text-2xl font-bold tracking-tight">
+          Question {index + 1} of {WFD_QUESTIONS.length}
+        </h1>
       </div>
 
       {/* Progress bar */}
@@ -89,17 +85,21 @@ export default function WfdSessionPage() {
 
       <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <p className="text-base font-medium text-slate-700">
-          Press play when you&apos;re ready to hear a sentence. Type the
+          The audio will start playing in {COUNTDOWN_SECONDS} seconds. Type the
           sentence exactly as you hear it.{" "}
           <InfoPopover align="right">
-            සූදානම් වුණාම play බොත්තම ඔබන්න — වාක්‍යය ඇහෙයි. ඇහෙන විදිහටම ඒ
-            වාක්‍යය පහළ කොටුවේ ලියන්න. අකුරු වැරදුණොත් ලකුණු අඩු වෙනවා.
+            ඇහෙන විදිහටම ඒ වාක්‍යය පහළ කොටුවේ ලියන්න. අකුරු වැරදුණොත් ලකුණු අඩු
+            වෙනවා.
           </InfoPopover>
         </p>
 
         <div className="mt-5">
-          {/* Remount per question so play and replay count reset */}
-          <AudioPlayer key={question.id} sentence={question.sentence} />
+          {/* Remount per question so countdown and replay count reset */}
+          <AudioPlayer
+            key={question.id}
+            sentence={question.sentence}
+            paused={phase !== "question"}
+          />
         </div>
 
         {phase === "question" ? (
@@ -194,10 +194,10 @@ function SessionSummary({
 
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
+      <p className="text-center text-sm font-normal text-slate-400">
         Listening · Write From Dictation
       </p>
-      <h1 className="mt-1 text-2xl font-bold tracking-tight">
+      <h1 className="mt-4 text-2xl font-bold tracking-tight">
         Session complete
       </h1>
       <p className="sinhala mt-1 text-sm text-slate-500">

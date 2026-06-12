@@ -3,15 +3,24 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const MAX_REPLAYS = 2;
+/** Seconds before the question audio starts playing automatically. */
+export const COUNTDOWN_SECONDS = 10;
+
+interface UseTtsOptions {
+  /** Pauses the pre-play countdown (e.g. when the question is no longer active). */
+  paused?: boolean;
+}
 
 interface UseTtsResult {
-  /** Plays the sentence. Counts against replays after the first manual play. */
+  /** Replays the sentence. Only available after the first (automatic) play. */
   play: () => void;
   isPlaying: boolean;
   /** Replays remaining after the first play. */
   replaysLeft: number;
-  /** Whether the user has played the sentence at least once. */
+  /** Whether the sentence has played at least once. */
   hasPlayed: boolean;
+  /** Seconds until the audio auto-plays, or null once the countdown is done. */
+  countdown: number | null;
   supported: boolean;
 }
 
@@ -26,13 +35,18 @@ function pickVoice(): SpeechSynthesisVoice | null {
 }
 
 /**
- * Browser TTS for one WFD question. Plays on manual request, then allows
- * up to MAX_REPLAYS replays. State resets when `sentence` changes.
+ * Browser TTS for one WFD question. Counts down COUNTDOWN_SECONDS, then
+ * auto-plays once. After that the user may replay up to MAX_REPLAYS times.
+ * State resets when `sentence` changes.
  */
-export function useTts(sentence: string): UseTtsResult {
+export function useTts(
+  sentence: string,
+  { paused = false }: UseTtsOptions = {}
+): UseTtsResult {
   const [isPlaying, setIsPlaying] = useState(false);
   const [replaysLeft, setReplaysLeft] = useState(MAX_REPLAYS);
   const [hasPlayed, setHasPlayed] = useState(false);
+  const [countdown, setCountdown] = useState<number | null>(COUNTDOWN_SECONDS);
   const [supported, setSupported] = useState(true);
   const sentenceRef = useRef(sentence);
   sentenceRef.current = sentence;
@@ -46,7 +60,15 @@ export function useTts(sentence: string): UseTtsResult {
     utterance.rate = 0.92;
     utterance.onstart = () => setIsPlaying(true);
     utterance.onend = () => setIsPlaying(false);
-    utterance.onerror = () => setIsPlaying(false);
+    utterance.onerror = (e) => {
+      setIsPlaying(false);
+      // Browsers can block speech started without a user gesture (e.g. right
+      // after a hard refresh). Fall back to a manual first play that doesn't
+      // cost a replay.
+      if (e.error === "not-allowed") setHasPlayed(false);
+    };
+    // Optimistic, so the replay button locks before `onstart` fires.
+    setIsPlaying(true);
     synth.speak(utterance);
   }, []);
 
@@ -58,6 +80,7 @@ export function useTts(sentence: string): UseTtsResult {
     }
     setReplaysLeft(MAX_REPLAYS);
     setHasPlayed(false);
+    setCountdown(COUNTDOWN_SECONDS);
 
     return () => {
       window.speechSynthesis.cancel();
@@ -65,16 +88,33 @@ export function useTts(sentence: string): UseTtsResult {
     };
   }, [sentence]);
 
+  // Tick the countdown, then auto-play once it reaches zero.
+  useEffect(() => {
+    if (!supported || paused || countdown === null) return;
+    if (countdown <= 0) {
+      setCountdown(null);
+      setHasPlayed(true);
+      speak();
+      return;
+    }
+    const timer = setTimeout(
+      () => setCountdown((c) => (c === null ? null : c - 1)),
+      1000
+    );
+    return () => clearTimeout(timer);
+  }, [supported, paused, countdown, speak]);
+
   const play = useCallback(() => {
-    if (!supported || isPlaying) return;
+    if (!supported || isPlaying || countdown !== null) return;
     if (hasPlayed && replaysLeft <= 0) return;
     if (hasPlayed) {
       setReplaysLeft((n) => n - 1);
     } else {
+      // Only reachable when the automatic play was blocked by the browser.
       setHasPlayed(true);
     }
     speak();
-  }, [supported, isPlaying, hasPlayed, replaysLeft, speak]);
+  }, [supported, isPlaying, countdown, hasPlayed, replaysLeft, speak]);
 
-  return { play, isPlaying, replaysLeft, hasPlayed, supported };
+  return { play, isPlaying, replaysLeft, hasPlayed, countdown, supported };
 }
