@@ -1,7 +1,6 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import InfoPopover from "@/components/InfoPopover";
 import { useTts, COUNTDOWN_SECONDS, MAX_REPLAYS } from "@/lib/useTts";
 
 const RING_RADIUS = 26;
@@ -120,16 +119,7 @@ export default function AudioPlayer({
                 ? "Press play to hear the audio"
                 : replaysLeft > 0
                   ? "Replay audio"
-                  : "No replays left"}{" "}
-          <InfoPopover>
-            {isCountingDown
-              ? `තත්පර ${countdown}කින් audio එක ඉබේම play වෙයි — හොඳින් අහන්න`
-              : !hasPlayed
-                ? "play ඔබලා audio එක අහන්න — පසුව තවත් වතාවන් දෙකක් අහන්න පුළුවන්"
-                : replaysLeft > 0
-                  ? `ඔබට තව වතාවන් ${replaysLeft}ක් අහන්න පුළුවන්`
-                  : "තවත් අහන්න බැහැ — දැන් ලියන්න"}
-          </InfoPopover>
+                  : "No replays left"}
         </p>
         <p className="text-xs text-slate-500">
           {!hasPlayed

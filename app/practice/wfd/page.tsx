@@ -127,14 +127,32 @@ export default function WfdSessionPage() {
         ) : (
           currentScore && (
             <div className="mt-5 space-y-5">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-slate-900">
-                  Your result
-                </h2>
-                <span className="rounded-full bg-brand-50 px-3 py-1 text-sm font-bold text-brand-700">
-                  {currentScore.correct}/{currentScore.total} words correct
-                </span>
-              </div>
+              {(() => {
+                const pct =
+                  currentScore.total > 0
+                    ? Math.round(
+                        (currentScore.correct / currentScore.total) * 100
+                      )
+                    : 0;
+                const colorClass =
+                  pct >= 80
+                    ? "text-green-600 bg-green-50 border-green-200"
+                    : pct >= 50
+                      ? "text-amber-600 bg-amber-50 border-amber-200"
+                      : "text-red-600 bg-red-50 border-red-200";
+                return (
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-sm font-semibold text-slate-900">
+                      Your result
+                    </h2>
+                    <span
+                      className={`rounded-full border px-4 py-1 text-xl font-bold ${colorClass}`}
+                    >
+                      {pct}%
+                    </span>
+                  </div>
+                );
+              })()}
 
               <WordDiff score={currentScore} />
 

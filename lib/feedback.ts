@@ -58,14 +58,14 @@ export function generateFeedback(
     }
     if (misspelled.length > 0) {
       points.push(
-        `අක්ෂර වින්‍යාසය වැරදුණු වචන: ${misspelled
+        `වැරදුණු වචන: ${misspelled
           .map((w) => `“${w.typed}” → නිවැරදි වචනය “${w.word}”`)
           .join(", ")}. PTE වලදී අකුරක් වැරදුණත් ලකුණු ලැබෙන්නේ නැහැ.`
       );
     }
     if (extra.length > 0) {
       points.push(
-        `වාක්‍යයේ නැති අමතර වචන ඔබ ලියලා තියෙනවා: ${list(
+        `වාක්‍යයේ නැති අමතර වචන: ${list(
           extra
         )}. ඇහුණු දේ විතරක් ලියන්න — අමුතුවෙන් වචන එකතු කරන්න එපා.`
       );
