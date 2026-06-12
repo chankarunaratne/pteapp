@@ -3,33 +3,19 @@ import Link from "next/link";
 const CATEGORIES = [
   {
     name: "Listening",
-    nameSi: "සවන්දීම",
     description: "Write From Dictation — 3 questions",
-    descriptionSi: "ඇහෙන වාක්‍යය ලියන්න — ප්‍රශ්න 3යි",
     href: "/practice/wfd",
     enabled: true,
   },
   {
     name: "Reading",
-    nameSi: "කියවීම",
     description: "Coming soon",
-    descriptionSi: "ළඟදීම",
     href: "#",
     enabled: false,
   },
   {
-    name: "Writing",
-    nameSi: "ලිවීම",
+    name: "Speaking & Writing",
     description: "Coming soon",
-    descriptionSi: "ළඟදීම",
-    href: "#",
-    enabled: false,
-  },
-  {
-    name: "Speaking",
-    nameSi: "කථනය",
-    description: "Coming soon",
-    descriptionSi: "ළඟදීම",
     href: "#",
     enabled: false,
   },
@@ -43,9 +29,8 @@ export default function PracticePage() {
         Choose a section to start practising.
       </p>
       <p className="sinhala mt-1 text-sm text-slate-500">
-        පුහුණු වෙන්න කොටසක් තෝරන්න. දැනට විවෘතව ඇත්තේ Listening කොටස පමණයි.
+        PTE Academic හි කොටස් 3ක් ඇත: Listening, Reading, Speaking & Writing. පහතින් ඇති එක් එක් කොටස පුහුණු වන්න.
       </p>
-
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {CATEGORIES.map((cat) =>
           cat.enabled ? (
@@ -59,16 +44,12 @@ export default function PracticePage() {
                   <h2 className="text-lg font-semibold text-slate-900 group-hover:text-brand-700">
                     {cat.name}
                   </h2>
-                  <p className="sinhala text-sm text-slate-500">{cat.nameSi}</p>
                 </div>
                 <span className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700">
                   Start
                 </span>
               </div>
               <p className="mt-4 text-sm text-slate-600">{cat.description}</p>
-              <p className="sinhala mt-0.5 text-sm text-slate-500">
-                {cat.descriptionSi}
-              </p>
             </Link>
           ) : (
             <div
@@ -81,7 +62,6 @@ export default function PracticePage() {
                   <h2 className="text-lg font-semibold text-slate-400">
                     {cat.name}
                   </h2>
-                  <p className="sinhala text-sm text-slate-400">{cat.nameSi}</p>
                 </div>
                 <span className="flex items-center gap-1 rounded-full bg-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-500">
                   <svg
@@ -102,9 +82,6 @@ export default function PracticePage() {
                 </span>
               </div>
               <p className="mt-4 text-sm text-slate-400">{cat.description}</p>
-              <p className="sinhala mt-0.5 text-sm text-slate-400">
-                {cat.descriptionSi}
-              </p>
             </div>
           )
         )}
