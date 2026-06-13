@@ -227,6 +227,15 @@ function SessionSummary({
   scores: ScoreResult[];
   onTryAgain: () => void;
 }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const totalCorrect = scores.reduce((sum, s) => sum + s.correct, 0);
   const totalWords = scores.reduce((sum, s) => sum + s.total, 0);
   const accuracy =
@@ -241,8 +250,22 @@ function SessionSummary({
     ),
   ];
 
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-24 animate-feedback-loader-in">
+        <div
+          className="h-8 w-8 rounded-full border-[3px] border-slate-200 border-t-brand-500"
+          style={{ animation: "feedback-spin 0.75s linear infinite" }}
+        />
+        <p className="mt-3 text-sm font-medium text-slate-400">
+          Generating summary report…
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="animate-feedback-reveal">
       <div className="text-sm font-normal text-slate-400 flex items-center">
         <Link href="/practice" className="hover:text-slate-600 transition">Practice</Link>
         <span className="mx-1.5">/</span>
@@ -292,7 +315,7 @@ function SessionSummary({
             {weakWords.map((word) => (
               <span
                 key={word}
-                className="rounded-lg border border-red-200 bg-red-50 px-2.5 py-1 text-sm font-medium text-red-700"
+                className="rounded-full border border-slate-300 bg-white px-3 py-1 text-sm font-medium text-slate-800"
               >
                 {word}
               </span>
