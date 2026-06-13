@@ -1,56 +1,89 @@
 import type { FeedbackLang } from "@/lib/feedback";
-import type { ScoreResult, WordStatus } from "@/lib/scoring";
+import type { ScoreResult } from "@/lib/scoring";
 
-const STATUS_STYLES: Record<WordStatus, string> = {
-  correct: "bg-green-100 text-green-800 border-green-200",
-  misspelled: "bg-amber-100 text-amber-800 border-amber-200",
-  missing: "bg-red-100 text-red-800 border-red-200",
-  extra: "bg-slate-100 text-slate-500 border-slate-200 line-through",
-};
-
-const LEGEND: { status: WordStatus; en: string; si: string }[] = [
-  { status: "correct", en: "Correct", si: "නිවැරදියි" },
-  { status: "misspelled", en: "Misspelled", si: "අකුරු වැරදියි" },
-  { status: "missing", en: "Missing", si: "මඟ හැරුණා" },
-  { status: "extra", en: "Extra", si: "අමතර" },
-];
-
+/**
+ * Two-line sentence comparison.
+ *
+ * Top line:  the full correct sentence in plain text.
+ * Bottom line: the user's attempt with only errors highlighted inline.
+ *
+ * Error styles are intentionally minimal — just enough colour to draw the eye
+ * without the cognitive overhead of a full colour-coded legend.
+ */
 export default function WordDiff({ score, lang }: { score: ScoreResult; lang: FeedbackLang }) {
-  return (
-    <div>
-      <div className="flex flex-wrap gap-2">
-        {score.words.map((w, idx) => (
+  // Build the correct sentence from target words (preserving order).
+  const correctWords = score.words
+    .filter((w) => w.status !== "extra")
+    .map((w) => w.word);
+
+  // Build the user's attempt tokens with error annotations.
+  const userTokens = score.words.map((w, idx) => {
+    switch (w.status) {
+      case "correct":
+        return (
+          <span key={idx} className="text-slate-700">
+            {w.word}
+          </span>
+        );
+      case "misspelled":
+        return (
           <span
             key={idx}
-            className={`inline-flex items-baseline gap-1.5 rounded-lg border px-2.5 py-1 text-sm font-medium ${STATUS_STYLES[w.status]}`}
+            className="rounded bg-amber-100 px-0.5 text-amber-800"
+            title={`Should be "${w.word}"`}
           >
-            {w.status === "misspelled" ? (
-              <>
-                <s className="opacity-70">{w.typed}</s>
-                <span>→ {w.word}</span>
-              </>
-            ) : w.status === "extra" ? (
-              w.typed
-            ) : (
-              w.word
-            )}
+            {w.typed}
           </span>
-        ))}
+        );
+      case "missing":
+        return (
+          <span
+            key={idx}
+            className="border-b-2 border-dashed border-red-300 px-0.5 text-red-400"
+          >
+            {w.word}
+          </span>
+        );
+      case "extra":
+        return (
+          <span
+            key={idx}
+            className="rounded bg-slate-100 px-0.5 text-slate-400 line-through"
+          >
+            {w.typed}
+          </span>
+        );
+    }
+  });
+
+  const isSi = lang === "si";
+  const labelClass = `shrink-0 min-w-[5rem] text-slate-500 ${
+    isSi
+      ? "text-sm font-normal sinhala pt-0.5"
+      : "text-xs font-semibold uppercase tracking-wide pt-0.5"
+  }`;
+
+  return (
+    <div className="space-y-3 text-sm leading-relaxed">
+      {/* Correct sentence */}
+      <div className="flex gap-3">
+        <span className={labelClass}>
+          {isSi ? "නිවැරදි" : "Correct"}
+        </span>
+        <p className="text-slate-700">{correctWords.join(" ")}</p>
       </div>
 
-      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500">
-        {LEGEND.map((item) => (
-          <span key={item.status} className="inline-flex items-center gap-1.5">
-            <span
-              className={`h-2.5 w-2.5 rounded-full border ${STATUS_STYLES[item.status]}`}
-            />
-            {lang === "si" ? (
-              <span className="sinhala">{item.si}</span>
-            ) : (
-              item.en
-            )}
-          </span>
-        ))}
+      {/* Divider */}
+      <div className="border-t border-dashed border-slate-200" />
+
+      {/* User's attempt with inline error highlights */}
+      <div className="flex gap-3">
+        <span className={labelClass}>
+          {isSi ? "ඔබේ පිළිතුර" : "Yours"}
+        </span>
+        <p className="flex flex-wrap gap-x-1.5 gap-y-0.5">
+          {userTokens}
+        </p>
       </div>
     </div>
   );

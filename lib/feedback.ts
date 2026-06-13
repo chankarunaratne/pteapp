@@ -22,20 +22,41 @@ export function generateFeedback(
   question: WfdQuestion,
   lang: FeedbackLang
 ): Feedback {
-  const missing = score.words
+  const missingAll = score.words
     .filter((w) => w.status === "missing")
     .map((w) => w.word);
   const misspelled = score.words.filter((w) => w.status === "misspelled");
-  const extra = score.words
+  const extraAll = score.words
     .filter((w) => w.status === "extra")
     .map((w) => w.typed);
 
-  const wrongWords = new Set([...missing, ...misspelled.map((w) => w.word)]);
+  // Detect out-of-order words: words that appear in both missing and extra
+  // lists mean the user typed the word but in the wrong position.
+  const outOfOrder: string[] = [];
+  const extraPool = [...extraAll];
+  for (const word of missingAll) {
+    const idx = extraPool.indexOf(word);
+    if (idx !== -1) {
+      outOfOrder.push(word);
+      extraPool.splice(idx, 1); // consume the match
+    }
+  }
+
+  // Remove out-of-order words from the missing/extra lists
+  const missingPool = [...missingAll];
+  for (const word of outOfOrder) {
+    const idx = missingPool.indexOf(word);
+    if (idx !== -1) missingPool.splice(idx, 1);
+  }
+  const missing = missingPool;
+  const extra = extraPool;
+
+  const wrongWords = new Set([...missingAll, ...misspelled.map((w) => w.word)]);
   const trickyNotes = question.trickyWords
     .filter((t) => wrongWords.has(t.word))
     .map((t) => ({ word: t.word, note: lang === "si" ? t.noteSi : t.noteEn }));
 
-  const perfect = score.correct === score.total && extra.length === 0;
+  const perfect = score.correct === score.total && extraAll.length === 0;
   const ratio = score.correct / score.total;
 
   let headline: string;
@@ -51,6 +72,11 @@ export function generateFeedback(
       headline = "කමක් නැහැ — වැරදුණු වචන හොඳින් බලලා ආයෙත් උත්සාහ කරමු.";
     }
 
+    if (outOfOrder.length > 0) {
+      points.push(
+        `වචන පිළිවෙළ වැරදියි: ${list(outOfOrder)}. වචන හරි — ඒත් පිළිවෙළට ලියන්න අමතක කරන්න එපා.`
+      );
+    }
     if (missing.length > 0) {
       points.push(
         `ඔබට මඟ හැරුණු වචන: ${list(missing)}. ඊළඟ වතාවේ audio එක අහද්දී මේ වචන වලට විශේෂ අවධානය දෙන්න.`
@@ -80,6 +106,11 @@ export function generateFeedback(
       headline = "That's okay — review the words below and try again.";
     }
 
+    if (outOfOrder.length > 0) {
+      points.push(
+        `Make sure you get the order right — ${list(outOfOrder)} ${outOfOrder.length === 1 ? "was" : "were"} in the wrong place. You had the right words, just not in the right sequence.`
+      );
+    }
     if (missing.length > 0) {
       points.push(
         `Words you missed: ${list(

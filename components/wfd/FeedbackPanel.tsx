@@ -20,12 +20,12 @@ export default function FeedbackPanel({ score, question, lang }: Props) {
   if (!hasContent) return null;
 
   return (
-    <div>
+    <div className="mt-6 border-t border-slate-200 pt-6 -mx-6 px-6">
       <h3 className={`text-sm font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
         {lang === "si" ? "වැරදි හරිගස්සමු" : "Let's fix the mistakes"}
       </h3>
 
-      <div className="mt-3 rounded-xl border border-brand-100 bg-brand-50/60 p-4">
+      <div className="mt-3">
         {feedback.points.length > 0 && (
           <ul className={`space-y-2 text-sm text-slate-700 ${textClass}`}>
             {feedback.points.map((point, idx) => (

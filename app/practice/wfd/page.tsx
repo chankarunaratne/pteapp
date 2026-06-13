@@ -155,66 +155,62 @@ export default function WfdSessionPage() {
 
       {/* Feedback card — shown after submission */}
       {phase === "result" && currentScore && (
-        <div className="mt-4 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-          {feedbackLoading ? (
-            <div className="flex flex-col items-center justify-center py-12 animate-feedback-loader-in">
-              <div
-                className="h-8 w-8 rounded-full border-[3px] border-slate-200 border-t-brand-500"
-                style={{ animation: "feedback-spin 0.75s linear infinite" }}
-              />
-              <p className="mt-3 text-sm font-medium text-slate-400">
-                Analyzing your answer…
-              </p>
-            </div>
-          ) : (
-            <div className="animate-feedback-reveal p-6">
-              <h2 className="text-lg font-bold tracking-tight text-slate-900">
-                Feedback
-              </h2>
-
-              <div className="mt-4">
-                <ScoreOverview score={currentScore} lang={lang} />
+        <>
+          <div className="mt-4 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            {feedbackLoading ? (
+              <div className="flex flex-col items-center justify-center py-12 animate-feedback-loader-in">
+                <div
+                  className="h-8 w-8 rounded-full border-[3px] border-slate-200 border-t-brand-500"
+                  style={{ animation: "feedback-spin 0.75s linear infinite" }}
+                />
+                <p className="mt-3 text-sm font-medium text-slate-400">
+                  Analyzing your answer…
+                </p>
               </div>
+            ) : (
+              <div className="animate-feedback-reveal p-6">
+                <h2 className="text-lg font-bold tracking-tight text-slate-900">
+                  Feedback
+                </h2>
 
-              {/* Sentence breakdown */}
-              <div className="mt-6">
-                <h3 className={`text-sm font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
-                  {lang === "si" ? "වාක්‍ය විශ්ලේෂණය" : "Sentence breakdown"}
-                </h3>
-                <div className="mt-3">
-                  <WordDiff score={currentScore} lang={lang} />
+                <div className="mt-4">
+                  <ScoreOverview score={currentScore} lang={lang} />
                 </div>
-                <div className="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
-                  <span className={`font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
-                    {lang === "si" ? "නිවැරදි වාක්‍යය: " : "Correct sentence: "}
-                  </span>
-                  {question.sentence}
-                </div>
-              </div>
 
-              {/* Detailed explanation */}
-              <div className="mt-6">
+                {/* Sentence comparison */}
+                <div className="mt-6 border-t border-slate-200 pt-6 -mx-6 px-6">
+                  <h3 className={`text-sm font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+                    {lang === "si" ? "වාක්‍ය විශ්ලේෂණය" : "Sentence comparison"}
+                  </h3>
+                  <div className="mt-3">
+                    <WordDiff score={currentScore} lang={lang} />
+                  </div>
+                </div>
+
+                {/* Detailed explanation */}
                 <FeedbackPanel
                   score={currentScore}
                   question={question}
                   lang={lang}
                 />
               </div>
+            )}
+          </div>
 
-              <div className="mt-6 flex justify-end">
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
-                >
-                  {index + 1 >= WFD_QUESTIONS.length
-                    ? "See Summary"
-                    : "Next Question"}
-                </button>
-              </div>
+          {!feedbackLoading && (
+            <div className="mt-4 flex justify-end">
+              <button
+                type="button"
+                onClick={handleNext}
+                className="rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
+              >
+                {index + 1 >= WFD_QUESTIONS.length
+                  ? "See Summary"
+                  : "Next Question"}
+              </button>
             </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );
