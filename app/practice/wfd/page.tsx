@@ -77,9 +77,13 @@ export default function WfdSessionPage() {
 
   return (
     <div>
-      <p className="text-center text-sm font-normal text-slate-400">
-        Listening · Write From Dictation
-      </p>
+      <div className="text-sm font-normal text-slate-400 flex items-center">
+        <Link href="/practice" className="hover:text-slate-600 transition">Practice</Link>
+        <span className="mx-1.5">/</span>
+        <span>Listening</span>
+        <span className="mx-1.5">/</span>
+        <span className="text-slate-600 font-medium">Write from dictation</span>
+      </div>
       <div className="mt-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight">
           Question {index + 1} of {WFD_QUESTIONS.length}
@@ -170,7 +174,7 @@ export default function WfdSessionPage() {
             ) : (
               <div className="animate-feedback-reveal p-6">
                 <h2 className="text-lg font-bold tracking-tight text-slate-900">
-                  Feedback
+                  Teacher feedback
                 </h2>
 
                 <div className="mt-4">
@@ -239,9 +243,13 @@ function SessionSummary({
 
   return (
     <div>
-      <p className="text-center text-sm font-normal text-slate-400">
-        Listening · Write From Dictation
-      </p>
+      <div className="text-sm font-normal text-slate-400 flex items-center">
+        <Link href="/practice" className="hover:text-slate-600 transition">Practice</Link>
+        <span className="mx-1.5">/</span>
+        <span>Listening</span>
+        <span className="mx-1.5">/</span>
+        <span className="text-slate-600 font-medium">Write from dictation</span>
+      </div>
       <h1 className="mt-4 text-2xl font-bold tracking-tight">
         Session complete
       </h1>
