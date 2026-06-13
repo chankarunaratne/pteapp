@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import InfoPopover from "@/components/InfoPopover";
 import AudioPlayer from "@/components/wfd/AudioPlayer";
 import FeedbackPanel from "@/components/wfd/FeedbackPanel";
@@ -22,6 +22,8 @@ export default function WfdSessionPage() {
   const [answer, setAnswer] = useState("");
   const [scores, setScores] = useState<ScoreResult[]>([]);
   const [lang, setLang] = useState<FeedbackLang>("si");
+  const [feedbackLoading, setFeedbackLoading] = useState(false);
+  const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const stored = sessionStorage.getItem(LANG_STORAGE_KEY);
@@ -39,8 +41,18 @@ export default function WfdSessionPage() {
   const handleSubmit = () => {
     window.speechSynthesis?.cancel();
     setScores((prev) => [...prev, scoreAnswer(question.sentence, answer)]);
+    setFeedbackLoading(true);
     setPhase("result");
+    feedbackTimerRef.current = setTimeout(() => {
+      setFeedbackLoading(false);
+    }, 1500);
   };
+
+  useEffect(() => {
+    return () => {
+      if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current);
+    };
+  }, []);
 
   const handleNext = () => {
     if (index + 1 >= WFD_QUESTIONS.length) {
@@ -139,52 +151,66 @@ export default function WfdSessionPage() {
 
       {/* Feedback card — shown after submission */}
       {phase === "result" && currentScore && (
-        <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-bold tracking-tight text-slate-900">
-            Feedback
-          </h2>
-
-          <div className="mt-4">
-            <ScoreOverview score={currentScore} />
-          </div>
-
-          {/* Sentence breakdown */}
-          <div className="mt-6">
-            <h3 className="text-sm font-semibold text-slate-900">
-              Sentence breakdown
-            </h3>
-            <div className="mt-3">
-              <WordDiff score={currentScore} />
+        <div className="mt-4 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+          {feedbackLoading ? (
+            <div className="flex flex-col items-center justify-center py-12 animate-feedback-loader-in">
+              <div
+                className="h-8 w-8 rounded-full border-[3px] border-slate-200 border-t-brand-500"
+                style={{ animation: "feedback-spin 0.75s linear infinite" }}
+              />
+              <p className="mt-3 text-sm font-medium text-slate-400">
+                Analyzing your answer…
+              </p>
             </div>
-            <div className="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
-              <span className="font-semibold text-slate-900">
-                Correct sentence:{" "}
-              </span>
-              {question.sentence}
+          ) : (
+            <div className="animate-feedback-reveal p-6">
+              <h2 className="text-lg font-bold tracking-tight text-slate-900">
+                Feedback
+              </h2>
+
+              <div className="mt-4">
+                <ScoreOverview score={currentScore} />
+              </div>
+
+              {/* Sentence breakdown */}
+              <div className="mt-6">
+                <h3 className="text-sm font-semibold text-slate-900">
+                  Sentence breakdown
+                </h3>
+                <div className="mt-3">
+                  <WordDiff score={currentScore} />
+                </div>
+                <div className="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
+                  <span className="font-semibold text-slate-900">
+                    Correct sentence:{" "}
+                  </span>
+                  {question.sentence}
+                </div>
+              </div>
+
+              {/* Detailed explanation */}
+              <div className="mt-6">
+                <FeedbackPanel
+                  score={currentScore}
+                  question={question}
+                  lang={lang}
+                  onLangChange={handleLangChange}
+                />
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
+                >
+                  {index + 1 >= WFD_QUESTIONS.length
+                    ? "See Summary"
+                    : "Next Question"}
+                </button>
+              </div>
             </div>
-          </div>
-
-          {/* Detailed explanation */}
-          <div className="mt-6">
-            <FeedbackPanel
-              score={currentScore}
-              question={question}
-              lang={lang}
-              onLangChange={handleLangChange}
-            />
-          </div>
-
-          <div className="mt-6 flex justify-end">
-            <button
-              type="button"
-              onClick={handleNext}
-              className="rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
-            >
-              {index + 1 >= WFD_QUESTIONS.length
-                ? "See Summary"
-                : "Next Question"}
-            </button>
-          </div>
+          )}
         </div>
       )}
     </div>
