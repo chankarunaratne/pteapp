@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import { useTts, COUNTDOWN_SECONDS } from "@/lib/useTts";
+import type { FeedbackLang } from "@/lib/feedback";
 
 const RING_RADIUS = 26;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
@@ -9,10 +10,14 @@ const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 export default function AudioPlayer({
   sentence,
   paused = false,
+  onRestart,
+  lang = "si",
 }: {
   sentence: string;
   /** Pauses the auto-play countdown (e.g. once the answer is submitted). */
   paused?: boolean;
+  onRestart?: () => void;
+  lang?: FeedbackLang;
 }) {
   const { play, isPlaying, hasPlayed, countdown, supported } =
     useTts(sentence, { paused });
@@ -73,24 +78,33 @@ export default function AudioPlayer({
         </svg>
         <button
           type="button"
-          onClick={play}
-          disabled={!canPlay}
+          onClick={onRestart || play}
+          disabled={!onRestart && !canPlay}
           className={`absolute inset-0 flex items-center justify-center rounded-full transition-colors duration-300 ${
-            isCountingDown
-              ? "cursor-default bg-brand-50 text-brand-700"
-              : canPlay
-                ? "bg-brand-500 text-white hover:bg-brand-600"
-                : "cursor-not-allowed bg-slate-200 text-slate-400"
+            onRestart
+              ? "bg-brand-500 text-white hover:bg-brand-600"
+              : isCountingDown
+                ? "cursor-default bg-brand-50 text-brand-700"
+                : canPlay
+                  ? "bg-brand-500 text-white hover:bg-brand-600"
+                  : "cursor-not-allowed bg-slate-200 text-slate-400"
           }`}
           aria-label={
-            isCountingDown
-              ? `Get ready to listen, ${countdown} seconds remaining`
-              : hasPlayed
-                ? "Replay audio"
-                : "Play audio"
+            onRestart
+              ? "Restart question"
+              : isCountingDown
+                ? `Get ready to listen, ${countdown} seconds remaining`
+                : hasPlayed
+                  ? "Replay audio"
+                  : "Play audio"
           }
         >
-          {isCountingDown ? (
+          {onRestart ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+          ) : isCountingDown ? (
             <span
               key={countdown}
               className="text-lg font-bold tabular-nums"
@@ -111,13 +125,15 @@ export default function AudioPlayer({
       </div>
       <div className="min-w-0">
         <p className="text-sm font-normal text-slate-600">
-          {isCountingDown
-            ? "Get ready to listen"
-            : isPlaying
-              ? "Playing..."
-              : paused || hasPlayed
-                ? "Replay audio"
-                : "Press play to hear the audio"}
+          {onRestart
+            ? "Restart question"
+            : isCountingDown
+              ? "Get ready to listen"
+              : isPlaying
+                ? "Playing..."
+                : paused || hasPlayed
+                  ? "Replay audio"
+                  : "Press play to hear the audio"}
         </p>
       </div>
     </div>

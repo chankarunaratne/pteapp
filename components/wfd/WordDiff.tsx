@@ -1,3 +1,4 @@
+import type { FeedbackLang } from "@/lib/feedback";
 import type { ScoreResult, WordStatus } from "@/lib/scoring";
 
 const STATUS_STYLES: Record<WordStatus, string> = {
@@ -14,7 +15,7 @@ const LEGEND: { status: WordStatus; en: string; si: string }[] = [
   { status: "extra", en: "Extra", si: "අමතර" },
 ];
 
-export default function WordDiff({ score }: { score: ScoreResult }) {
+export default function WordDiff({ score, lang }: { score: ScoreResult; lang: FeedbackLang }) {
   return (
     <div>
       <div className="flex flex-wrap gap-2">
@@ -43,7 +44,11 @@ export default function WordDiff({ score }: { score: ScoreResult }) {
             <span
               className={`h-2.5 w-2.5 rounded-full border ${STATUS_STYLES[item.status]}`}
             />
-            {item.en} · <span className="sinhala">{item.si}</span>
+            {lang === "si" ? (
+              <span className="sinhala">{item.si}</span>
+            ) : (
+              item.en
+            )}
           </span>
         ))}
       </div>

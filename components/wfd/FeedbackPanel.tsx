@@ -8,15 +8,9 @@ interface Props {
   score: ScoreResult;
   question: WfdQuestion;
   lang: FeedbackLang;
-  onLangChange: (lang: FeedbackLang) => void;
 }
 
-export default function FeedbackPanel({
-  score,
-  question,
-  lang,
-  onLangChange,
-}: Props) {
+export default function FeedbackPanel({ score, question, lang }: Props) {
   const feedback = generateFeedback(score, question, lang);
   const textClass = lang === "si" ? "sinhala" : "";
 
@@ -27,39 +21,9 @@ export default function FeedbackPanel({
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-4">
-        <h3 className="text-sm font-semibold text-slate-900">
-          Detailed explanation
-        </h3>
-        <div
-          className="flex shrink-0 overflow-hidden rounded-lg border border-slate-300 text-xs font-semibold"
-          role="group"
-          aria-label="Feedback language"
-        >
-          <button
-            type="button"
-            onClick={() => onLangChange("si")}
-            className={`sinhala px-3 py-1.5 transition ${
-              lang === "si"
-                ? "bg-brand-600 text-white"
-                : "bg-white text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            සිංහල
-          </button>
-          <button
-            type="button"
-            onClick={() => onLangChange("en")}
-            className={`px-3 py-1.5 transition ${
-              lang === "en"
-                ? "bg-brand-600 text-white"
-                : "bg-white text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            English
-          </button>
-        </div>
-      </div>
+      <h3 className={`text-sm font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+        {lang === "si" ? "වැරදි හරිගස්සමු" : "Let's fix the mistakes"}
+      </h3>
 
       <div className="mt-3 rounded-xl border border-brand-100 bg-brand-50/60 p-4">
         {feedback.points.length > 0 && (

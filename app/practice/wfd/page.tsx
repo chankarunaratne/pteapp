@@ -1,18 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InfoPopover from "@/components/InfoPopover";
 import AudioPlayer from "@/components/wfd/AudioPlayer";
 import FeedbackPanel from "@/components/wfd/FeedbackPanel";
 import ScoreOverview from "@/components/wfd/ScoreOverview";
 import WordDiff from "@/components/wfd/WordDiff";
+import { useLanguage } from "@/lib/LanguageContext";
 import type { FeedbackLang } from "@/lib/feedback";
 import { WFD_QUESTIONS } from "@/lib/questions";
 import { COUNTDOWN_SECONDS } from "@/lib/useTts";
 import { scoreAnswer, type ScoreResult } from "@/lib/scoring";
-
-const LANG_STORAGE_KEY = "ptelanka-feedback-lang";
 
 type Phase = "question" | "result" | "summary";
 
@@ -21,19 +20,10 @@ export default function WfdSessionPage() {
   const [index, setIndex] = useState(0);
   const [answer, setAnswer] = useState("");
   const [scores, setScores] = useState<ScoreResult[]>([]);
-  const [lang, setLang] = useState<FeedbackLang>("si");
+  const { lang } = useLanguage();
   const [feedbackLoading, setFeedbackLoading] = useState(false);
+  const [restartCount, setRestartCount] = useState(0);
   const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const stored = sessionStorage.getItem(LANG_STORAGE_KEY);
-    if (stored === "si" || stored === "en") setLang(stored);
-  }, []);
-
-  const handleLangChange = useCallback((next: FeedbackLang) => {
-    setLang(next);
-    sessionStorage.setItem(LANG_STORAGE_KEY, next);
-  }, []);
 
   const question = WFD_QUESTIONS[index];
   const currentScore = scores[index];
@@ -46,6 +36,14 @@ export default function WfdSessionPage() {
     feedbackTimerRef.current = setTimeout(() => {
       setFeedbackLoading(false);
     }, 1500);
+  };
+
+  const handleRestart = () => {
+    window.speechSynthesis?.cancel();
+    setScores((prev) => prev.slice(0, index));
+    setAnswer("");
+    setPhase("question");
+    setRestartCount((c) => c + 1);
   };
 
   useEffect(() => {
@@ -61,6 +59,7 @@ export default function WfdSessionPage() {
       setIndex(index + 1);
       setAnswer("");
       setPhase("question");
+      setRestartCount(0);
     }
   };
 
@@ -69,6 +68,7 @@ export default function WfdSessionPage() {
     setIndex(0);
     setAnswer("");
     setPhase("question");
+    setRestartCount(0);
   };
 
   if (phase === "summary") {
@@ -109,15 +109,19 @@ export default function WfdSessionPage() {
 
         <div className="mt-5">
           <AudioPlayer
-            key={question.id}
+            key={`${question.id}-${restartCount}`}
             sentence={question.sentence}
             paused={phase !== "question"}
+            onRestart={phase === "result" ? handleRestart : undefined}
+            lang={lang}
           />
         </div>
 
         {phase === "result" && (
           <div className="mt-4">
-            <h3 className="text-sm font-semibold text-slate-900">You typed</h3>
+            <h3 className="text-sm font-semibold text-slate-900">
+              You typed
+            </h3>
             <p className="mt-1 rounded-lg bg-slate-50 p-3 text-sm text-slate-700">
               {answer}
             </p>
@@ -169,20 +173,20 @@ export default function WfdSessionPage() {
               </h2>
 
               <div className="mt-4">
-                <ScoreOverview score={currentScore} />
+                <ScoreOverview score={currentScore} lang={lang} />
               </div>
 
               {/* Sentence breakdown */}
               <div className="mt-6">
-                <h3 className="text-sm font-semibold text-slate-900">
-                  Sentence breakdown
+                <h3 className={`text-sm font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+                  {lang === "si" ? "වාක්‍ය විශ්ලේෂණය" : "Sentence breakdown"}
                 </h3>
                 <div className="mt-3">
-                  <WordDiff score={currentScore} />
+                  <WordDiff score={currentScore} lang={lang} />
                 </div>
                 <div className="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
-                  <span className="font-semibold text-slate-900">
-                    Correct sentence:{" "}
+                  <span className={`font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+                    {lang === "si" ? "නිවැරදි වාක්‍යය: " : "Correct sentence: "}
                   </span>
                   {question.sentence}
                 </div>
@@ -194,7 +198,6 @@ export default function WfdSessionPage() {
                   score={currentScore}
                   question={question}
                   lang={lang}
-                  onLangChange={handleLangChange}
                 />
               </div>
 

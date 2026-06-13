@@ -1,3 +1,4 @@
+import type { FeedbackLang } from "@/lib/feedback";
 import type { ScoreResult } from "@/lib/scoring";
 
 const RING_SIZE = 96;
@@ -5,7 +6,26 @@ const STROKE_WIDTH = 7;
 const RADIUS = (RING_SIZE - STROKE_WIDTH) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-function getScoreMessage(pct: number): string {
+function getScoreHeading(pct: number, lang: FeedbackLang): string {
+  if (lang === "si") {
+    if (pct === 100) return "සම්පූර්ණයි!";
+    if (pct >= 80) return "ගොඩක් හොඳයි!";
+    if (pct >= 50) return "හොඳටම ළඟයි!";
+    return "තව පුහුණු වෙන්න";
+  }
+  if (pct === 100) return "Perfect!";
+  if (pct >= 80) return "Great job!";
+  if (pct >= 50) return "Almost there!";
+  return "Keep practicing";
+}
+
+function getScoreMessage(pct: number, lang: FeedbackLang): string {
+  if (lang === "si") {
+    if (pct === 100) return "සියලුම වචන නිවැරදියි. හරිම දක්ෂයි!";
+    if (pct >= 80) return "පොඩි වැරදි ටිකක් තියෙනවා. පහළින් බලන්න.";
+    if (pct >= 50) return "තව ටිකක් උත්සාහ කරන්න. මඟ හැරුණු වචන පහළින් බලන්න.";
+    return "මඟ හැරුණු වචන පහළින් බලලා තව පුහුණු වෙන්න.";
+  }
   if (pct === 100) return "Perfect score! You nailed every word.";
   if (pct >= 80)
     return "Great job! Just a few small slips. Review the breakdown below.";
@@ -26,7 +46,7 @@ const BADGE_STYLES: Record<string, string> = {
   extra: "bg-slate-100 text-slate-600 border-slate-200",
 };
 
-export default function ScoreOverview({ score }: { score: ScoreResult }) {
+export default function ScoreOverview({ score, lang }: { score: ScoreResult; lang: FeedbackLang }) {
   const pct =
     score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
   const offset = CIRCUMFERENCE - (pct / 100) * CIRCUMFERENCE;
@@ -41,9 +61,9 @@ export default function ScoreOverview({ score }: { score: ScoreResult }) {
   const extraCount = score.words.filter((w) => w.status === "extra").length;
 
   const badges = [
-    { label: "Misspelled", count: misspelledCount, key: "misspelled" },
-    { label: "Missing", count: missingCount, key: "missing" },
-    { label: "Extra", count: extraCount, key: "extra" },
+    { label: lang === "si" ? "අකුරු වැරදියි" : "Misspelled", count: misspelledCount, key: "misspelled" },
+    { label: lang === "si" ? "මඟ හැරුණා" : "Missing", count: missingCount, key: "missing" },
+    { label: lang === "si" ? "අමතර" : "Extra", count: extraCount, key: "extra" },
   ].filter((b) => b.count > 0);
 
   return (
@@ -87,9 +107,11 @@ export default function ScoreOverview({ score }: { score: ScoreResult }) {
 
       {/* Text + badges */}
       <div className="min-w-0 flex-1">
-        <h2 className="text-base font-semibold text-slate-900">Your result</h2>
-        <p className="mt-0.5 text-sm leading-snug text-slate-500">
-          {getScoreMessage(pct)}
+        <h2 className={`text-base font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+          {getScoreHeading(pct, lang)}
+        </h2>
+        <p className={`mt-0.5 text-sm leading-snug text-slate-500 ${lang === "si" ? "sinhala" : ""}`}>
+          {getScoreMessage(pct, lang)}
         </p>
 
         {badges.length > 0 && (
@@ -97,7 +119,7 @@ export default function ScoreOverview({ score }: { score: ScoreResult }) {
             {badges.map((b) => (
               <span
                 key={b.key}
-                className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${BADGE_STYLES[b.key]}`}
+                className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${BADGE_STYLES[b.key]} ${lang === "si" ? "sinhala" : ""}`}
               >
                 {b.label}
                 <span className="font-bold">{b.count}</span>

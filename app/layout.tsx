@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Sinhala } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
+import { LanguageProvider } from "@/lib/LanguageContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,12 +31,17 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${notoSansSinhala.variable} font-sans`}
       >
-        <div className="flex min-h-screen">
-          <Sidebar />
-          <main className="flex-1 px-6 py-10 lg:px-12">
-            <div className="mx-auto w-full max-w-3xl">{children}</div>
-          </main>
-        </div>
+        <LanguageProvider>
+          <div className="flex min-h-screen">
+            <Sidebar />
+            <div className="flex flex-1 flex-col">
+              <Header />
+              <main className="flex-1 px-6 py-10 lg:px-12">
+                <div className="mx-auto w-full max-w-3xl">{children}</div>
+              </main>
+            </div>
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
