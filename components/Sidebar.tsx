@@ -46,7 +46,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="sticky top-0 flex h-screen w-60 shrink-0 flex-col border-r border-slate-200 bg-white">
+    <aside className="sticky top-0 flex h-screen w-60 shrink-0 flex-col border-r border-slate-200/70 bg-slate-50">
       <div className="px-6 py-7">
         <Link href="/practice" className="text-xl font-bold tracking-tight">
           PTE<span className="text-brand-600">lanka</span>
@@ -94,8 +94,8 @@ export default function Sidebar() {
               href={item.href}
               className={`${baseClasses} ${
                 isActive
-                  ? "bg-brand-50 text-brand-700"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-200/60"
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
               }`}
             >
               {icon}

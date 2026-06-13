@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import InfoPopover from "@/components/InfoPopover";
 import AudioPlayer from "@/components/wfd/AudioPlayer";
 import FeedbackPanel from "@/components/wfd/FeedbackPanel";
+import ScoreOverview from "@/components/wfd/ScoreOverview";
 import WordDiff from "@/components/wfd/WordDiff";
 import type { FeedbackLang } from "@/lib/feedback";
 import { WFD_QUESTIONS } from "@/lib/questions";
@@ -83,6 +84,7 @@ export default function WfdSessionPage() {
         />
       </div>
 
+      {/* Question card — instructions + audio + input */}
       <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <p className="text-base font-medium text-slate-700">
           The audio will start playing in {COUNTDOWN_SECONDS} seconds. Type the
@@ -94,7 +96,6 @@ export default function WfdSessionPage() {
         </p>
 
         <div className="mt-5">
-          {/* Remount per question so countdown and replay count reset */}
           <AudioPlayer
             key={question.id}
             sentence={question.sentence}
@@ -102,7 +103,16 @@ export default function WfdSessionPage() {
           />
         </div>
 
-        {phase === "question" ? (
+        {phase === "result" && (
+          <div className="mt-4">
+            <h3 className="text-sm font-semibold text-slate-900">You typed</h3>
+            <p className="mt-1 rounded-lg bg-slate-50 p-3 text-sm text-slate-700">
+              {answer}
+            </p>
+          </div>
+        )}
+
+        {phase === "question" && (
           <>
             <textarea
               value={answer}
@@ -124,67 +134,59 @@ export default function WfdSessionPage() {
               </button>
             </div>
           </>
-        ) : (
-          currentScore && (
-            <div className="mt-5 space-y-5">
-              {(() => {
-                const pct =
-                  currentScore.total > 0
-                    ? Math.round(
-                        (currentScore.correct / currentScore.total) * 100
-                      )
-                    : 0;
-                const colorClass =
-                  pct >= 80
-                    ? "text-green-600 bg-green-50 border-green-200"
-                    : pct >= 50
-                      ? "text-amber-600 bg-amber-50 border-amber-200"
-                      : "text-red-600 bg-red-50 border-red-200";
-                return (
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-sm font-semibold text-slate-900">
-                      Your result
-                    </h2>
-                    <span
-                      className={`rounded-full border px-4 py-1 text-xl font-bold ${colorClass}`}
-                    >
-                      {pct}%
-                    </span>
-                  </div>
-                );
-              })()}
-
-              <WordDiff score={currentScore} />
-
-              <div className="rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
-                <span className="font-semibold text-slate-900">
-                  Correct sentence:{" "}
-                </span>
-                {question.sentence}
-              </div>
-
-              <FeedbackPanel
-                score={currentScore}
-                question={question}
-                lang={lang}
-                onLangChange={handleLangChange}
-              />
-
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
-                >
-                  {index + 1 >= WFD_QUESTIONS.length
-                    ? "See Summary"
-                    : "Next Question"}
-                </button>
-              </div>
-            </div>
-          )
         )}
       </div>
+
+      {/* Feedback card — shown after submission */}
+      {phase === "result" && currentScore && (
+        <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-bold tracking-tight text-slate-900">
+            Feedback
+          </h2>
+
+          <div className="mt-4">
+            <ScoreOverview score={currentScore} />
+          </div>
+
+          {/* Sentence breakdown */}
+          <div className="mt-6">
+            <h3 className="text-sm font-semibold text-slate-900">
+              Sentence breakdown
+            </h3>
+            <div className="mt-3">
+              <WordDiff score={currentScore} />
+            </div>
+            <div className="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
+              <span className="font-semibold text-slate-900">
+                Correct sentence:{" "}
+              </span>
+              {question.sentence}
+            </div>
+          </div>
+
+          {/* Detailed explanation */}
+          <div className="mt-6">
+            <FeedbackPanel
+              score={currentScore}
+              question={question}
+              lang={lang}
+              onLangChange={handleLangChange}
+            />
+          </div>
+
+          <div className="mt-6 flex justify-end">
+            <button
+              type="button"
+              onClick={handleNext}
+              className="rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
+            >
+              {index + 1 >= WFD_QUESTIONS.length
+                ? "See Summary"
+                : "Next Question"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

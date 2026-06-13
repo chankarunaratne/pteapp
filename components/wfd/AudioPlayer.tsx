@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { useTts, COUNTDOWN_SECONDS, MAX_REPLAYS } from "@/lib/useTts";
+import { useTts, COUNTDOWN_SECONDS } from "@/lib/useTts";
 
 const RING_RADIUS = 26;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
@@ -14,7 +14,7 @@ export default function AudioPlayer({
   /** Pauses the auto-play countdown (e.g. once the answer is submitted). */
   paused?: boolean;
 }) {
-  const { play, isPlaying, replaysLeft, hasPlayed, countdown, supported } =
+  const { play, isPlaying, hasPlayed, countdown, supported } =
     useTts(sentence, { paused });
 
   if (!supported) {
@@ -30,10 +30,10 @@ export default function AudioPlayer({
   }
 
   const isCountingDown = countdown !== null;
-  const canPlay = !isCountingDown && !isPlaying && (!hasPlayed || replaysLeft > 0);
+  const canPlay = !isCountingDown && !isPlaying;
 
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4">
+    <div className="flex items-center gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
       <div className="relative h-12 w-12 shrink-0">
         {/* Countdown progress ring; fades out when the countdown finishes */}
         <svg
@@ -115,16 +115,9 @@ export default function AudioPlayer({
             ? "Get ready to listen"
             : isPlaying
               ? "Playing..."
-              : !hasPlayed
-                ? "Press play to hear the audio"
-                : replaysLeft > 0
-                  ? "Replay audio"
-                  : "No replays left"}
-        </p>
-        <p className="text-xs text-slate-500">
-          {!hasPlayed
-            ? `Up to ${MAX_REPLAYS} replays after you listen`
-            : `${replaysLeft} of ${MAX_REPLAYS} replays left`}
+              : paused || hasPlayed
+                ? "Replay audio"
+                : "Press play to hear the audio"}
         </p>
       </div>
     </div>

@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export const MAX_REPLAYS = 2;
 /** Seconds before the question audio starts playing automatically. */
 export const COUNTDOWN_SECONDS = 10;
 
@@ -12,11 +11,9 @@ interface UseTtsOptions {
 }
 
 interface UseTtsResult {
-  /** Replays the sentence. Only available after the first (automatic) play. */
+  /** Replays the sentence. Available any time after the first play. */
   play: () => void;
   isPlaying: boolean;
-  /** Replays remaining after the first play. */
-  replaysLeft: number;
   /** Whether the sentence has played at least once. */
   hasPlayed: boolean;
   /** Seconds until the audio auto-plays, or null once the countdown is done. */
@@ -36,7 +33,7 @@ function pickVoice(): SpeechSynthesisVoice | null {
 
 /**
  * Browser TTS for one WFD question. Counts down COUNTDOWN_SECONDS, then
- * auto-plays once. After that the user may replay up to MAX_REPLAYS times.
+ * auto-plays once. After that the user may replay unlimited times.
  * State resets when `sentence` changes.
  */
 export function useTts(
@@ -44,7 +41,6 @@ export function useTts(
   { paused = false }: UseTtsOptions = {}
 ): UseTtsResult {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [replaysLeft, setReplaysLeft] = useState(MAX_REPLAYS);
   const [hasPlayed, setHasPlayed] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(COUNTDOWN_SECONDS);
   const [supported, setSupported] = useState(true);
@@ -62,12 +58,8 @@ export function useTts(
     utterance.onend = () => setIsPlaying(false);
     utterance.onerror = (e) => {
       setIsPlaying(false);
-      // Browsers can block speech started without a user gesture (e.g. right
-      // after a hard refresh). Fall back to a manual first play that doesn't
-      // cost a replay.
       if (e.error === "not-allowed") setHasPlayed(false);
     };
-    // Optimistic, so the replay button locks before `onstart` fires.
     setIsPlaying(true);
     synth.speak(utterance);
   }, []);
@@ -78,7 +70,6 @@ export function useTts(
       setSupported(false);
       return;
     }
-    setReplaysLeft(MAX_REPLAYS);
     setHasPlayed(false);
     setCountdown(COUNTDOWN_SECONDS);
 
@@ -104,17 +95,19 @@ export function useTts(
     return () => clearTimeout(timer);
   }, [supported, paused, countdown, speak]);
 
+  // When paused (e.g. answer submitted), cancel any running countdown so the
+  // player shows a replay button instead of a frozen timer.
+  useEffect(() => {
+    if (paused) setCountdown(null);
+  }, [paused]);
+
   const play = useCallback(() => {
     if (!supported || isPlaying || countdown !== null) return;
-    if (hasPlayed && replaysLeft <= 0) return;
-    if (hasPlayed) {
-      setReplaysLeft((n) => n - 1);
-    } else {
-      // Only reachable when the automatic play was blocked by the browser.
+    if (!hasPlayed) {
       setHasPlayed(true);
     }
     speak();
-  }, [supported, isPlaying, countdown, hasPlayed, replaysLeft, speak]);
+  }, [supported, isPlaying, countdown, hasPlayed, speak]);
 
-  return { play, isPlaying, replaysLeft, hasPlayed, countdown, supported };
+  return { play, isPlaying, hasPlayed, countdown, supported };
 }
