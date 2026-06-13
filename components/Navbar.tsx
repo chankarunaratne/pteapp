@@ -7,8 +7,13 @@ import { useLanguage } from "@/lib/LanguageContext";
 
 const NAV_ITEMS = [
   {
-    label: "Dashboard",
+    label: "Home",
     href: "/dashboard",
+    enabled: false,
+  },
+  {
+    label: "Course",
+    href: "/course",
     enabled: false,
   },
   {
@@ -19,11 +24,6 @@ const NAV_ITEMS = [
   {
     label: "PTE format",
     href: "/pte-format",
-    enabled: false,
-  },
-  {
-    label: "Profile",
-    href: "/profile",
     enabled: false,
   },
 ];
@@ -50,7 +50,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center border-b border-slate-200/70 bg-white/80 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6">
+      <div className="flex w-full items-center justify-between px-6">
         {/* Left: Logo + Nav */}
         <div className="flex items-center gap-8">
           <Link href="/practice" className="text-xl font-bold tracking-tight">
