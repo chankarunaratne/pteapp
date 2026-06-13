@@ -94,3 +94,27 @@ export const WFD_QUESTIONS: WfdQuestion[] = [
     ],
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  Listening: Fill in the Blanks (L-FIB)                              */
+/* ------------------------------------------------------------------ */
+
+export interface FibQuestion {
+  id: string;
+  /** The passage text with blanks marked as {{word}}. */
+  passage: string;
+  /** The full unredacted text — used for TTS playback. */
+  fullText: string;
+  difficulty: Difficulty;
+}
+
+export const FIB_QUESTIONS: FibQuestion[] = [
+  {
+    id: "lfib-1",
+    passage:
+      "Climate change is one of the most {{significant}} challenges facing humanity today. Rising global {{temperatures}} have led to more frequent extreme weather events, including floods, droughts, and wildfires. Scientists have warned that without {{immediate}} action, the consequences could be {{irreversible}}. Governments around the world are now investing in renewable energy sources and implementing policies to reduce carbon {{emissions}}.",
+    fullText:
+      "Climate change is one of the most significant challenges facing humanity today. Rising global temperatures have led to more frequent extreme weather events, including floods, droughts, and wildfires. Scientists have warned that without immediate action, the consequences could be irreversible. Governments around the world are now investing in renewable energy sources and implementing policies to reduce carbon emissions.",
+    difficulty: "medium",
+  },
+];

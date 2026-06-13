@@ -71,9 +71,9 @@ const CATEGORIES: Category[] = [
         shortName: "FIB",
         description:
           "Listen and fill in the missing words in a transcript.",
-        href: "#",
-        enabled: false,
-        questionCount: 0,
+        href: "/practice/listening/lfib",
+        enabled: true,
+        questionCount: 1,
       },
       {
         name: "Highlight Correct Summary",

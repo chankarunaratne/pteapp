@@ -12,14 +12,14 @@ const NAV_ITEMS = [
     enabled: false,
   },
   {
-    label: "Course",
-    href: "/course",
-    enabled: false,
-  },
-  {
     label: "Practice",
     href: "/practice",
     enabled: true,
+  },
+  {
+    label: "Course",
+    href: "/course",
+    enabled: false,
   },
   {
     label: "PTE format",
