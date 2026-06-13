@@ -80,7 +80,7 @@ export default function WfdSessionPage() {
       <div className="text-sm font-normal text-slate-400 flex items-center">
         <Link href="/practice" className="hover:text-slate-600 transition">Practice</Link>
         <span className="mx-1.5">/</span>
-        <span>Listening</span>
+        <Link href="/practice/listening" className="hover:text-slate-600 transition">Listening</Link>
         <span className="mx-1.5">/</span>
         <span className="text-slate-600 font-medium">Write from dictation</span>
       </div>
@@ -246,7 +246,7 @@ function SessionSummary({
       <div className="text-sm font-normal text-slate-400 flex items-center">
         <Link href="/practice" className="hover:text-slate-600 transition">Practice</Link>
         <span className="mx-1.5">/</span>
-        <span>Listening</span>
+        <Link href="/practice/listening" className="hover:text-slate-600 transition">Listening</Link>
         <span className="mx-1.5">/</span>
         <span className="text-slate-600 font-medium">Write from dictation</span>
       </div>

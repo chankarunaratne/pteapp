@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Sinhala } from "next/font/google";
-import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+import Navbar from "@/components/Navbar";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import "./globals.css";
 
@@ -32,14 +31,11 @@ export default function RootLayout({
         className={`${inter.variable} ${notoSansSinhala.variable} font-sans`}
       >
         <LanguageProvider>
-          <div className="flex min-h-screen">
-            <Sidebar />
-            <div className="flex flex-1 flex-col">
-              <Header />
-              <main className="flex-1 px-6 py-10 lg:px-12">
-                <div className="mx-auto w-full max-w-3xl">{children}</div>
-              </main>
-            </div>
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <main className="flex-1 px-6 py-10 lg:px-12">
+              <div className="mx-auto w-full max-w-3xl">{children}</div>
+            </main>
           </div>
         </LanguageProvider>
       </body>

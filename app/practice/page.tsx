@@ -3,8 +3,8 @@ import Link from "next/link";
 const CATEGORIES = [
   {
     name: "Listening",
-    description: "Write From Dictation — 3 questions",
-    href: "/practice/wfd",
+    description: "8 question types — Write From Dictation & more",
+    href: "/practice/listening",
     enabled: true,
   },
   {
@@ -25,10 +25,7 @@ export default function PracticePage() {
   return (
     <div>
       <h1 className="text-2xl font-bold tracking-tight">Practice</h1>
-      <p className="mt-2 text-slate-600">
-        Choose a section to start practising.
-      </p>
-      <p className="sinhala mt-1 text-sm text-slate-500">
+      <p className="sinhala mt-2 text-sm text-slate-500">
         PTE Academic හි කොටස් 3ක් ඇත: Listening, Reading, Speaking & Writing. පහතින් ඇති එක් එක් කොටස පුහුණු වන්න.
       </p>
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
