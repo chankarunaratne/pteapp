@@ -23,6 +23,11 @@ body {
   line-height: 1.75;
 }
 
+/* Headings need a tighter line-height even in Sinhala */
+h1.sinhala, h2.sinhala, h3.sinhala, h4.sinhala {
+  line-height: 1.3;
+}
+
 /* Pre-play countdown ring on the WFD audio player */
 @keyframes countdown-ring {
   from {

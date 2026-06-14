@@ -132,7 +132,7 @@ export default function LandingPage() {
       {/*  HERO                                                        */}
       {/* ============================================================ */}
       <section className="landing-section is-visible bg-white px-6 pb-20 pt-16 lg:px-12">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           {/* Copy */}
           <div>
             <div className="stagger-1">
@@ -141,15 +141,16 @@ export default function LandingPage() {
               </span>
             </div>
 
-            <h1 className="sinhala stagger-2 mb-6 text-4xl font-bold leading-tight text-slate-900 lg:text-5xl lg:leading-[1.15]">
-              ඔයාගේ PTE journey එක,{" "}
-              <span className="text-brand-600">
-                අපි සිංහලෙන් guide කරනවා
+            <h1 className="sinhala stagger-2 mb-6 text-4xl font-bold !leading-tight text-slate-900 lg:text-5xl lg:!leading-[1.15]">
+              PTE සිංහලෙන් <br />
+              ඉගෙනගෙන{" "}
+              <span className="text-brand-600 whitespace-nowrap">
+                පාස් වෙමු.
               </span>
             </h1>
 
             <p className="sinhala stagger-3 mb-8 max-w-lg text-lg leading-relaxed text-slate-500">
-              PTE exam එකට prepare වෙන්න English resources විතරක් depend
+              PTE exam එකට prepare වෙන්න English resources මතම විතරක් depend
               වෙන්න ඕනි නෑ. ඔයාට familiar භාෂාවෙන් practice කරන්න, feedback
               ගන්න.
             </p>
