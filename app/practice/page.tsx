@@ -27,6 +27,177 @@ type Category = {
 
 const CATEGORIES: Category[] = [
   {
+    id: "speaking",
+    name: "Speaking & Writing",
+    subtitle:
+      "Speaking & Writing කොටසේ ප්‍රශ්න වර්ග 9ක් ඇත. පහතින් එකක් තෝරන්න.",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        className="h-4 w-4"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
+        />
+      </svg>
+    ),
+    enabled: true,
+    questionTypes: [
+      {
+        name: "Read Aloud",
+        shortName: "RA",
+        description:
+          "Read a text displayed on the screen aloud into the microphone.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Repeat Sentence",
+        shortName: "RS",
+        description:
+          "Listen to a recording of a sentence and repeat it back exactly.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Describe Image",
+        shortName: "DI",
+        description: "Look at an image or chart and describe it in detail.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Retell Lecture",
+        shortName: "RL",
+        description: "Listen to a short lecture and retell it in your own words.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Answer Short Question",
+        shortName: "ASQ",
+        description:
+          "Listen to a question and answer it with a single word or short phrase.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Summarize Group Discussion",
+        shortName: "SGD",
+        description:
+          "Listen to a group discussion and write or speak a summary.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Respond to a Situation",
+        shortName: "RTS",
+        description:
+          "Listen to a situation description and speak your response to it.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Summarize Written Text",
+        shortName: "SWT",
+        description:
+          "Read a text and write a one-sentence summary in 5–75 words.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Write Essay",
+        shortName: "WE",
+        description:
+          "Write a 200–300 word argumentative essay on a given topic.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+    ],
+  },
+  {
+    id: "reading",
+    name: "Reading",
+    subtitle: "Reading කොටසේ ප්‍රශ්න වර්ග 5ක් ඇත. පහතින් එකක් තෝරන්න.",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        className="h-4 w-4"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+        />
+      </svg>
+    ),
+    enabled: true,
+    questionTypes: [
+      {
+        name: "Fill in the Blanks (Dropdown)",
+        shortName: "FIB-D",
+        description:
+          "Read a text with blanks and select the correct words from dropdown menus.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Multiple Choice, Multiple Answers",
+        shortName: "MCMA",
+        description:
+          "Read a text and answer the multiple-choice question by selecting all correct options.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Reorder Paragraph",
+        shortName: "RP",
+        description:
+          "Arrange the text boxes in the correct order to reconstruct the original text.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Fill in the Blanks (Drag and Drop)",
+        shortName: "FIB-DD",
+        description:
+          "Drag words from the box and drop them into the correct blanks in the text.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+      {
+        name: "Multiple Choice, Single Answer",
+        shortName: "MCSA",
+        description:
+          "Read a text and answer the multiple-choice question by selecting the single correct option.",
+        href: "#",
+        enabled: false,
+        questionCount: 0,
+      },
+    ],
+  },
+  {
     id: "listening",
     name: "Listening",
     subtitle:
@@ -121,50 +292,6 @@ const CATEGORIES: Category[] = [
         questionCount: 3,
       },
     ],
-  },
-  {
-    id: "reading",
-    name: "Reading",
-    subtitle: "Reading question types will be available soon.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        className="h-4 w-4"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-        />
-      </svg>
-    ),
-    enabled: false,
-    questionTypes: [],
-  },
-  {
-    id: "speaking",
-    name: "Speaking & Writing",
-    subtitle: "Speaking & Writing question types will be available soon.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        className="h-4 w-4"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
-        />
-      </svg>
-    ),
-    enabled: false,
-    questionTypes: [],
   },
 ];
 
@@ -265,7 +392,7 @@ function ComingSoonPanel({ category }: { category: Category }) {
 /* ------------------------------------------------------------------ */
 
 export default function PracticePage() {
-  const [activeTab, setActiveTab] = useState("listening");
+  const [activeTab, setActiveTab] = useState("speaking");
   const activeCategory = CATEGORIES.find((c) => c.id === activeTab)!;
 
   return (

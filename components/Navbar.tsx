@@ -22,6 +22,11 @@ const NAV_ITEMS = [
     enabled: false,
   },
   {
+    label: "Mock exam",
+    href: "/mock-exam",
+    enabled: false,
+  },
+  {
     label: "PTE format",
     href: "/pte-format",
     enabled: false,
