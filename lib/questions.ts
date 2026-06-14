@@ -217,3 +217,83 @@ export const MCMA_QUESTIONS: McmaQuestion[] = [
     explanationSi: "කථිකයා පවසන පරිදි අලුතින් ලබාගන්නා තොරතුරු ප්‍රථමයෙන් හිපොකැම්පස් (hippocampus) හි තාවකාලිකව තැන්පත් වන අතර නින්දේදී ඒවා ප්‍රධාන මස්තිෂ්ක බාහිකයට (neocortex) මාරු කරනු ලැබේ. තවද, ගැඹුරු නින්දේදී (slow-wave sleep) මතකයන් ස්ථාවර කිරීම සඳහා ස්නායුක සම්බන්ධතා සක්‍රීයව ශක්තිමත් කෙරේ."
   }
 ];
+
+/* ------------------------------------------------------------------ */
+/*  Listening: Multiple-choice, Choose Single Answer (L-MCSA)         */
+/* ------------------------------------------------------------------ */
+
+export interface McsaQuestion {
+  id: string;
+  questionText: string;
+  audioText: string;
+  options: string[];
+  correctIndex: number;
+  difficulty: Difficulty;
+  explanationSi: string;
+  explanationEn: string;
+}
+
+export const MCSA_QUESTIONS: McsaQuestion[] = [
+  {
+    id: "mcsa-1",
+    questionText: "What is the speaker's main point about the history of spices?",
+    audioText: "For thousands of years, spices were not just culinary enhancers, but powerful currencies and symbols of immense wealth. The spice trade drove global exploration, leading to the charting of new oceans and the colonization of distant lands. European powers fought fierce wars over control of small islands in the East Indies where nutmeg and cloves grew. However, as trade routes expanded and cultivation techniques spread to other parts of the world, spices transitioned from luxury items reserved for royalty to common ingredients available to everyone. Today, while we take black pepper and cinnamon for granted, their historical impact on geopolitical boundaries and global cultural exchange remains profound.",
+    options: [
+      "European powers were primarily interested in spices for their medicinal properties.",
+      "The global trade of spices was a key catalyst for exploration and colonization.",
+      "Spices have always been inexpensive and widely available throughout history.",
+      "The cultivation of nutmeg was restricted to European territories."
+    ],
+    correctIndex: 1,
+    difficulty: "medium",
+    explanationEn: "The speaker states that the spice trade 'drove global exploration, leading to the charting of new oceans and the colonization of distant lands' and notes its 'historical impact on geopolitical boundaries'.",
+    explanationSi: "කථිකයා පවසන්නේ කුළුබඩු වෙළඳාම ගෝලීය ගවේෂණයට මඟ පෑදූ අතර නව සාගර සිතියම්ගත කිරීමට සහ දුරස්ථ රටවල් යටත් විජිතකරණය කිරීමට හේතු වූ බවයි."
+  },
+  {
+    id: "mcsa-2",
+    questionText: "According to the speaker, what is the primary benefit of urban green spaces?",
+    audioText: "While the aesthetic value of parks and urban gardens is undeniable, their primary benefit lies in their capacity to mitigate the urban heat island effect. Built environments, dominated by concrete and asphalt, absorb and retain heat, raising city temperatures significantly compared to surrounding rural areas. Vegetation, however, cools the air through evapotranspiration and provides shade. This natural cooling mechanism not only enhances human comfort but also reduces the energy demand for air conditioning, thereby lowering greenhouse gas emissions. Therefore, strategic integration of green spaces is a crucial adaptation measure for combatting climate change in dense metropolitan areas.",
+    options: [
+      "They increase concrete and asphalt surfaces in metropolitan areas.",
+      "They serve as a tourist attraction that boosts the local economy.",
+      "They cool city air through evapotranspiration, mitigating heat absorption.",
+      "They eliminate the need for agricultural production in rural areas."
+    ],
+    correctIndex: 2,
+    difficulty: "hard",
+    explanationEn: "The speaker highlights that green spaces mitigate the urban heat island effect because 'vegetation cools the air through evapotranspiration and provides shade'.",
+    explanationSi: "නගරයේ කොන්ක්‍රීට් සහ තාර මගින් අවශෝෂණය කරගන්නා තාපය අවම කරමින්, ශාක පත්‍ර මගින් සිදුවන උත්ස්වේදනය (evapotranspiration) සහ සෙවණ ලබාදීම මගින් නගරයේ වාතය සිසිල් කිරීම හරිත අවකාශයන්ගෙන් ලැබෙන ප්‍රධානතම ප්‍රයෝජනය බව කථිකයා පවසයි."
+  }
+];
+
+/* ------------------------------------------------------------------ */
+/*  Listening: Highlight Correct Summary (L-HCS)                     */
+/* ------------------------------------------------------------------ */
+
+export interface HcsQuestion {
+  id: string;
+  audioText: string;
+  options: string[];
+  correctIndex: number;
+  difficulty: Difficulty;
+  explanationSi: string;
+  explanationEn: string;
+}
+
+export const HCS_QUESTIONS: HcsQuestion[] = [
+  {
+    id: "hcs-1",
+    audioText: "For centuries, it was a fundamental tenet of biology that all life on Earth ultimately depended on energy from the sun. Photosynthesis was seen as the primary engine driving food webs across every ecosystem, from lush rain forests to the depths of the ocean. However, in 1977, oceanographers exploring the Galápagos Rift made a startling discovery that completely shattered this paradigm: hydrothermal vents spewing superheated, mineral-rich water onto the dark ocean floor. To their amazement, these vents were surrounded by thriving communities of bizarre organisms, including giant tube worms, blind shrimp, and ghost crabs, living in complete darkness and under crushing pressure. Instead of sunlight, the foundation of this ecosystem was chemosynthesis—a process where specialized bacteria convert toxic hydrogen sulfide from the vents into usable chemical energy. This discovery not only proved that complex life could survive without solar radiation, but it also revolutionized our understanding of where life might have originated on early Earth, suggesting that the first metabolic pathways may have sparked in the hot, mineral-rich environments of the deep sea. It has even expanded our search for extraterrestrial life, pointing scientists toward the icy moons of Jupiter and Saturn, where sub-surface oceans might host similar hydrothermal systems.",
+    options: [
+      "The discovery of hydrothermal vents in 1977 challenged the long-held belief that all terrestrial life depends on photosynthesis and sunlight. By revealing ecosystems supported entirely by chemosynthesis in the deep ocean, it opened new possibilities regarding the origin of life on Earth and where life might exist on other planets.",
+      "Although oceanographers in 1977 discovered that giant tube worms and blind shrimp could survive under extreme pressure near hydrothermal vents, these organisms were later found to depend indirectly on photosynthetic debris drifting down from the ocean surface.",
+      "Deep-sea hydrothermal vents proved that life originated in space before being transported to Earth. This has led scientists to focus their planetary exploration exclusively on Jupiter and Saturn, where similar bacterial ecosystems have already been documented.",
+      "Hydrothermal vents are extremely toxic environments due to the presence of hydrogen sulfide, which makes it impossible for standard marine life to survive. Scientists are now trying to clean these areas to protect nearby ecosystems from further chemical contamination."
+    ],
+    correctIndex: 0,
+    difficulty: "hard",
+    explanationEn: "The speaker discusses how the discovery of deep-sea hydrothermal vents in 1977 disproved the assumption that all life depends on sunlight and photosynthesis. These ecosystems rely on chemosynthesis, which has changed theories on the origin of life and where we might find life in outer space. The first option best summarizes all these key points.",
+    explanationSi: "කථිකයා පවසන්නේ 1977 වසරේදී ගැඹුරු මුහුදේ හයිඩ්‍රොතර්මල් වෙන්ට්ස් (hydrothermal vents) සොයාගැනීමත් සමඟ, සියලුම ජීවීන් සූර්යාලෝකය සහ ප්‍රභාසංස්ලේෂණය මත රඳා පවතී යන මතය අභියෝගයට ලක් වූ බවයි. සූර්යාලෝකය රහිතව රසායනික සංස්ලේෂණය (chemosynthesis) ඇසුරින් පවතින මෙම පරිසර පද්ධති සොයාගැනීම නිසා ජීවයේ සම්භවය සහ වෙනත් ග්‍රහලෝකවල ජීවය පැවතීමේ හැකියාව පිළිබඳ පර්යේෂණ උඩුයටිකුරු විය. පළමු විකල්පය මෙම සියලු කරුණු හොඳින්ම කැටි කොට දක්වයි."
+  }
+];
+

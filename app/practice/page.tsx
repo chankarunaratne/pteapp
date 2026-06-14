@@ -80,18 +80,18 @@ const CATEGORIES: Category[] = [
         shortName: "HCS",
         description:
           "Listen and select the paragraph that best summarises the recording.",
-        href: "#",
-        enabled: false,
-        questionCount: 0,
+        href: "/practice/listening/hcs",
+        enabled: true,
+        questionCount: 1,
       },
       {
         name: "Multiple-choice, Choose Single Answer",
         shortName: "MCSA",
         description:
           "Listen to a recording and choose the single correct response.",
-        href: "#",
-        enabled: false,
-        questionCount: 0,
+        href: "/practice/listening/mcsa",
+        enabled: true,
+        questionCount: 2,
       },
       {
         name: "Select Missing Word",
