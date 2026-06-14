@@ -1,45 +1,103 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { login, logout } from "@/lib/auth";
 
 const NAV_ITEMS = [
-  {
-    label: "Home",
-    href: "/dashboard",
-    enabled: false,
-  },
-  {
-    label: "Practice",
-    href: "/practice",
-    enabled: true,
-  },
-  {
-    label: "Course",
-    href: "/course",
-    enabled: false,
-  },
-  {
-    label: "Mock exam",
-    href: "/mock-exam",
-    enabled: false,
-  },
-  {
-    label: "PTE format",
-    href: "/pte-format",
-    enabled: false,
-  },
+  { label: "Home", href: "/" },
+  { label: "Practice", href: "/practice" },
+  { label: "Course", href: "/course" },
+  { label: "Mock exam", href: "/mock-exam" },
+  { label: "PTE format", href: "/pte-format" },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  Hook: measure the active nav link so the pill can slide to it      */
+/* ------------------------------------------------------------------ */
+
+function useActivePill(pathname: string) {
+  const navRef = useRef<HTMLElement>(null);
+  const [pill, setPill] = useState({ left: 0, width: 0, ready: false });
+
+  const measure = useCallback(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+
+    const links = nav.querySelectorAll<HTMLElement>("[data-nav-link]");
+    for (const link of links) {
+      if (link.dataset.active === "true") {
+        const navRect = nav.getBoundingClientRect();
+        const linkRect = link.getBoundingClientRect();
+        setPill({
+          left: linkRect.left - navRect.left,
+          width: linkRect.width,
+          ready: true,
+        });
+        return;
+      }
+    }
+    // No active link found — hide pill
+    setPill((p) => ({ ...p, ready: false }));
+  }, []);
+
+  // Measure on mount + whenever pathname changes
+  // useLayoutEffect avoids a visible flash on first render
+  useLayoutEffect(() => {
+    measure();
+  }, [pathname, measure]);
+
+  // Re-measure on resize
+  useEffect(() => {
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [measure]);
+
+  return { navRef, pill };
+}
+
+/* ------------------------------------------------------------------ */
+/*  Navbar                                                             */
+/* ------------------------------------------------------------------ */
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { lang, setLang } = useLanguage();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
+  const { navRef, pill } = useActivePill(pathname);
+
+  // Check login status on mount
+  useEffect(() => {
+    setIsLoggedIn(document.cookie.includes("pb_session="));
+  }, []);
+
+  const handleLogin = async () => {
+    await login();
+    setIsLoggedIn(true);
+    router.push("/practice");
+    router.refresh();
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    setIsLoggedIn(false);
+    router.push("/");
+    router.refresh();
+  };
+
+  // Close settings dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -54,38 +112,54 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center border-b border-slate-200/70 bg-white/80 backdrop-blur-md">
-      <div className="flex w-full items-center justify-between px-6">
-        {/* Left: Logo + Nav */}
-        <div className="flex items-center gap-8">
-          <Link href="/practice" className="text-xl font-bold tracking-tight">
-            PTE<span className="text-brand-600">lanka</span>
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white">
+      <div className="flex h-16 w-full items-center justify-between px-6">
+        {/* -------- Left: Logo + Nav -------- */}
+        <div className="flex h-full items-center gap-10">
+          {/* Logo */}
+          <Link
+            href={isLoggedIn ? "/practice" : "/"}
+            className="flex items-center gap-2.5"
+          >
+            {/* Blue circle icon */}
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
+              L
+            </span>
+            <span className="text-base font-semibold tracking-tight text-slate-900">
+              Lanka<span className="text-brand-600">PTE</span>
+            </span>
           </Link>
 
-          <nav className="flex items-center gap-1">
-            {NAV_ITEMS.map((item) => {
-              const isActive = pathname.startsWith(item.href);
+          {/* Navigation with animated underline */}
+          <nav ref={navRef} className="relative flex h-full items-center gap-1">
+            {/* Sliding underline indicator */}
+            {pill.ready && (
+              <span
+                className="absolute bottom-0 h-0.5 rounded-full bg-brand-600 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+                style={{
+                  left: pill.left,
+                  width: pill.width,
+                }}
+                aria-hidden="true"
+              />
+            )}
 
-              if (!item.enabled) {
-                return (
-                  <span
-                    key={item.label}
-                    className="flex cursor-not-allowed items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-400"
-                    title="Coming soon"
-                  >
-                    {item.label}
-                  </span>
-                );
-              }
+            {NAV_ITEMS.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
 
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                  data-nav-link
+                  data-active={isActive}
+                  className={`relative z-10 px-3 py-2 text-base font-medium transition-colors duration-200 ${
                     isActive
-                      ? "bg-brand-50 text-brand-700"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                      ? "text-slate-900"
+                      : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   {item.label}
@@ -95,33 +169,43 @@ export default function Navbar() {
           </nav>
         </div>
 
-        {/* Right: Sign In + Settings */}
-        <div className="flex items-center gap-3">
-          {/* Sign In button */}
-          <span
-            className="flex cursor-not-allowed items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-400"
-            title="Coming soon"
-          >
-            Sign in
-          </span>
+        {/* -------- Right: Auth + Settings -------- */}
+        <div className="flex items-center gap-2">
+          {/* Sign In / Sign Out */}
+          {isLoggedIn ? (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="cursor-pointer rounded-lg px-5 py-2 text-base font-medium text-slate-500 transition-colors hover:text-slate-900"
+            >
+              Sign out
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleLogin}
+              className="cursor-pointer rounded-lg bg-brand-600 px-7 py-2 text-base font-medium text-white transition-colors hover:bg-brand-700"
+            >
+              Sign in
+            </button>
+          )}
 
-          {/* Settings dropdown container */}
+          {/* Settings gear */}
           <div ref={dropdownRef} className="relative">
             <button
               type="button"
               onClick={() => setSettingsOpen((prev) => !prev)}
-              className="flex cursor-pointer items-center justify-center rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+              className="flex cursor-pointer items-center justify-center rounded-full p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
               aria-expanded={settingsOpen}
               aria-haspopup="true"
               aria-label="Settings"
             >
-              {/* Gear icon */}
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.8}
-                className="h-5 w-5"
+                className="h-[18px] w-[18px]"
                 aria-hidden="true"
               >
                 <path
