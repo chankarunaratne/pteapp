@@ -8,6 +8,8 @@ export const COUNTDOWN_SECONDS = 10;
 interface UseTtsOptions {
   /** Pauses the pre-play countdown (e.g. when the question is no longer active). */
   paused?: boolean;
+  /** Restricts playback to once only. */
+  playOnce?: boolean;
 }
 
 interface UseTtsResult {
@@ -38,7 +40,7 @@ function pickVoice(): SpeechSynthesisVoice | null {
  */
 export function useTts(
   sentence: string,
-  { paused = false }: UseTtsOptions = {}
+  { paused = false, playOnce = false }: UseTtsOptions = {}
 ): UseTtsResult {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasPlayed, setHasPlayed] = useState(false);
@@ -103,11 +105,12 @@ export function useTts(
 
   const play = useCallback(() => {
     if (!supported || isPlaying || countdown !== null) return;
+    if (playOnce && hasPlayed) return;
     if (!hasPlayed) {
       setHasPlayed(true);
     }
     speak();
-  }, [supported, isPlaying, countdown, hasPlayed, speak]);
+  }, [supported, isPlaying, countdown, hasPlayed, speak, playOnce]);
 
   return { play, isPlaying, hasPlayed, countdown, supported };
 }

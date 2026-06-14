@@ -12,15 +12,17 @@ export default function AudioPlayer({
   paused = false,
   onRestart,
   lang = "si",
+  playOnce = false,
 }: {
   sentence: string;
   /** Pauses the auto-play countdown (e.g. once the answer is submitted). */
   paused?: boolean;
   onRestart?: () => void;
   lang?: FeedbackLang;
+  playOnce?: boolean;
 }) {
   const { play, isPlaying, hasPlayed, countdown, supported } =
-    useTts(sentence, { paused });
+    useTts(sentence, { paused, playOnce });
 
   if (!supported) {
     return (
@@ -35,7 +37,7 @@ export default function AudioPlayer({
   }
 
   const isCountingDown = countdown !== null;
-  const canPlay = !isCountingDown && !isPlaying;
+  const canPlay = !isCountingDown && !isPlaying && (!playOnce || !hasPlayed);
 
   return (
     <div className="flex items-center gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
@@ -131,9 +133,11 @@ export default function AudioPlayer({
               ? "Get ready to listen"
               : isPlaying
                 ? "Playing..."
-                : paused || hasPlayed
-                  ? "Replay audio"
-                  : "Press play to hear the audio"}
+                : playOnce && hasPlayed
+                  ? "Audio played (only once allowed)"
+                  : paused || hasPlayed
+                    ? "Replay audio"
+                    : "Press play to hear the audio"}
         </p>
       </div>
     </div>

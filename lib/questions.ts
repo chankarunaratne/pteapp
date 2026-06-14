@@ -118,3 +118,102 @@ export const FIB_QUESTIONS: FibQuestion[] = [
     difficulty: "medium",
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  Listening: Highlight Incorrect Words (L-HIW)                       */
+/* ------------------------------------------------------------------ */
+
+export interface HiwIncorrectWord {
+  index: number;
+  displayed: string;
+  correct: string;
+}
+
+export interface HiwQuestion {
+  id: string;
+  transcript: string;
+  fullText: string;
+  incorrectWords: HiwIncorrectWord[];
+  difficulty: Difficulty;
+}
+
+export const HIW_QUESTIONS: HiwQuestion[] = [
+  {
+    id: "hiw-1",
+    transcript: "So far in our discussion of chemical equations we have assumed that these reactions only go in one direction, the forward direction, from left to right as we read it in the equation. That's why our arrowhead points from left to right: reactants react together to make products. However, this is not exactly how things occur in reality. In fact, practically every chemical reaction is reversible, meaning the products can also react together to reform the reactants that they were made of. So instead of writing that single arrow facing from right to top, a more appropriate symbol would be a double arrow, one going from left to right and one going from right to left. Reactants are continually - continuously - reacting to form produce. But at the same time as those products are formed, they remake the reactants. They're both going simultaneously, forming each other. This is what we would call a state of equality.",
+    fullText: "So far in our discussion of chemical reactions we have assumed that these reactions only go in one direction, the forward direction, from left to right as we read it in the equation. That's why our arrow points from left to right: reactants react together to make products. However, this is not exactly how things occur in reality. In fact, practically every chemical reaction is reversible, meaning the products can also react together to reform the reactants that they were made of. So instead of writing that single arrow facing from right to top, a more appropriate symbol would be a double arrow, one going from left to right and one going from right to left. Reactants are continually - continuously - reacting to form products. But at the same time as those products are formed, they remake the reactants. They're both going simultaneously, forming each other. This is what we would call a state of equilibrium.",
+    incorrectWords: [
+      {
+        index: 7,
+        displayed: "equations",
+        correct: "reactions",
+      },
+      {
+        index: 36,
+        displayed: "arrowhead",
+        correct: "arrow",
+      },
+      {
+        index: 125,
+        displayed: "produce.",
+        correct: "products.",
+      },
+      {
+        index: 156,
+        displayed: "equality.",
+        correct: "equilibrium.",
+      },
+    ],
+    difficulty: "medium",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Listening: Multiple-choice, Choose Multiple Answers (L-MCMA)      */
+/* ------------------------------------------------------------------ */
+
+export interface McmaQuestion {
+  id: string;
+  questionText: string;
+  audioText: string;
+  options: string[];
+  correctIndices: number[];
+  difficulty: Difficulty;
+  explanationSi: string;
+  explanationEn: string;
+}
+
+export const MCMA_QUESTIONS: McmaQuestion[] = [
+  {
+    id: "mcma-1",
+    questionText: "The purpose of this talk is to ______",
+    audioText: "Today, I want to discuss how simple, everyday objects can serve as the catalyst for groundbreaking technological innovations. Take the humble pinecone, for instance. By studying how it opens and closes in response to humidity, materials scientists have designed smart fabrics that adjust their breathability automatically. Similarly, observing the surface structure of a common lotus leaf led to the development of self-cleaning glass and paint. We often walk past these mundane items without a second thought, but if we change our perspective and look at them with curiosity, we can find elegant solutions to complex engineering challenges. I encourage all of you to look around your own homes and consider how the ordinary things you see might inspire the next wave of green technology.",
+    options: [
+      "suggest ways to make indoor lighting more economical.",
+      "illustrate how an everyday object could inspire new technology.",
+      "persuade listeners to participate in a scientific study.",
+      "describe an artistic exhibition using familiar items.",
+      "encourage listeners to think creatively about mundane items."
+    ],
+    correctIndices: [1, 4],
+    difficulty: "medium",
+    explanationEn: "The speaker illustrates how everyday objects like pinecones and lotus leaves inspire new technologies (smart fabrics, self-cleaning glass) and encourages listeners to think creatively about mundane items in their own homes to inspire future green technology.",
+    explanationSi: "කථිකයා පෙන්වා දෙන්නේ පයින් කෝන්ස් (pinecones) සහ නෙළුම් කොළ (lotus leaves) වැනි එදිනෙදා දකින සරල දේවල් ඇසුරින් නව තාක්ෂණයන් (smart fabrics, self-cleaning glass) බිහි වී ඇති ආකාරයයි. තවද, තමන්ගේ නිවෙස්වල ඇති එදිනෙදා දකින සරල දේවල් දෙස නිර්මාණශීලීව බලා අනාගත හරිත තාක්ෂණය සඳහා අනුප්‍රාණය ලබා ගන්නා ලෙස ඔහු ශ්‍රාවකයන් දිරිමත් කරයි."
+  },
+  {
+    id: "mcma-2",
+    questionText: "According to the speaker, which of the following statements about sleep and memory are true?",
+    audioText: "When we acquire new information during the day, it is first registered in the hippocampus, a temporary storage site with limited capacity. During the deep stages of sleep, particularly slow-wave sleep, these memories are reactivated and gradually transferred to the neocortex for long-term storage, which frees up the hippocampus for new learning. This process involves the active strengthening of neural pathways, which stabilizes the memory trace and protects it from interference. Research shows that sleep deprivation severely impairs this transfer process, making it incredibly difficult to form new lasting memories the next day. Furthermore, even brief periods of daytime rest, such as a twenty-minute nap, can significantly enhance cognitive retention and boost subsequent memory performance.",
+    options: [
+      "Deep sleep primarily helps in consolidating motor skills and procedural tasks.",
+      "The hippocampus temporarily stores new information before transferring it to the cortex.",
+      "Sleep deprivation affects the brain's ability to retrieve old memories but not form new ones.",
+      "During slow-wave sleep, neural connections are actively strengthened to stabilize memories.",
+      "A short afternoon nap has no significant impact on cognitive retention."
+    ],
+    correctIndices: [1, 3],
+    difficulty: "hard",
+    explanationEn: "The speaker states that new information is temporarily registered in the hippocampus before being transferred to the neocortex during sleep, and that during slow-wave sleep, neural connections are actively strengthened to stabilize these memories.",
+    explanationSi: "කථිකයා පවසන පරිදි අලුතින් ලබාගන්නා තොරතුරු ප්‍රථමයෙන් හිපොකැම්පස් (hippocampus) හි තාවකාලිකව තැන්පත් වන අතර නින්දේදී ඒවා ප්‍රධාන මස්තිෂ්ක බාහිකයට (neocortex) මාරු කරනු ලැබේ. තවද, ගැඹුරු නින්දේදී (slow-wave sleep) මතකයන් ස්ථාවර කිරීම සඳහා ස්නායුක සම්බන්ධතා සක්‍රීයව ශක්තිමත් කෙරේ."
+  }
+];

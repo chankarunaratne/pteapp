@@ -62,9 +62,9 @@ const CATEGORIES: Category[] = [
         shortName: "MCMA",
         description:
           "Listen to a recording and choose all correct responses.",
-        href: "#",
-        enabled: false,
-        questionCount: 0,
+        href: "/practice/listening/mcma",
+        enabled: true,
+        questionCount: 2,
       },
       {
         name: "Fill in the Blanks",
@@ -107,9 +107,9 @@ const CATEGORIES: Category[] = [
         shortName: "HIW",
         description:
           "Listen and identify words in the transcript that differ from the recording.",
-        href: "#",
-        enabled: false,
-        questionCount: 0,
+        href: "/practice/listening/hiw",
+        enabled: true,
+        questionCount: 1,
       },
       {
         name: "Write from Dictation",
