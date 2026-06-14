@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 /* ------------------------------------------------------------------ */
@@ -132,21 +133,15 @@ export default function LandingPage() {
       {/*  HERO                                                        */}
       {/* ============================================================ */}
       <section className="landing-section is-visible bg-white px-6 pb-20 pt-16 lg:px-12">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
           {/* Copy */}
           <div>
-            <div className="stagger-1">
-              <span className="mb-4 inline-block rounded-full bg-brand-50 px-4 py-1.5 text-xs font-semibold tracking-wide text-brand-600">
-                Sri Lanka&apos;s first Sinhala PTE platform
-              </span>
-            </div>
+
 
             <h1 className="sinhala stagger-2 mb-6 text-4xl font-bold !leading-tight text-slate-900 lg:text-5xl lg:!leading-[1.15]">
               PTE සිංහලෙන් <br />
-              ඉගෙනගෙන{" "}
-              <span className="text-brand-600 whitespace-nowrap">
-                පාස් වෙමු.
-              </span>
+              <span className="whitespace-nowrap">ඉගෙනගෙන{" "}
+              <span className="text-brand-600">පාස් වෙමු.</span></span>
             </h1>
 
             <p className="sinhala stagger-3 mb-8 max-w-lg text-lg leading-relaxed text-slate-500">
@@ -175,68 +170,23 @@ export default function LandingPage() {
                   />
                 </svg>
               </Link>
-              <a
-                href="#how-it-works"
-                className="sinhala text-base font-medium text-slate-500 transition-colors hover:text-brand-600"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document
-                    .getElementById("how-it-works")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                එය කොහොමද වැඩ කරන්නේ? ↓
-              </a>
             </div>
           </div>
 
           {/* Hero image */}
-          <div className="stagger-3">
-            <ImagePlaceholder
-              description="A confident Sri Lankan young person (mid-20s) sitting at a clean desk with a laptop, looking determined but calm. Natural lighting, professional but warm. Upper body shot, modern setting."
-              aspectRatio="4/3"
-              className="lg:min-h-[400px]"
+          <div className="stagger-3 relative overflow-hidden rounded-lg border border-slate-200/60 shadow-2xl shadow-slate-900/10 aspect-[4/3] lg:aspect-auto lg:min-h-[520px]">
+            <Image
+              src="/images/hero-image.png"
+              alt="PTE සිංහලෙන් ඉගෙනගෙන පාස් වෙමු"
+              fill
+              priority
+              className="object-cover object-center"
             />
           </div>
         </div>
       </section>
 
-      {/* ============================================================ */}
-      {/*  EMPATHY — "We understand"                                   */}
-      {/* ============================================================ */}
-      <section className="landing-section bg-slate-50 px-6 py-20 lg:px-12">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Image — left on desktop */}
-          <div className="stagger-1 order-2 lg:order-1">
-            <ImagePlaceholder
-              description="A person studying alone at a desk at home. Notebooks and papers spread out, laptop open. Evening lighting — warm desk lamp glow. Focused but slightly overwhelmed. Sri Lankan person, casual home clothes."
-              aspectRatio="4/3"
-              className="lg:min-h-[360px]"
-            />
-          </div>
 
-          {/* Copy — right on desktop */}
-          <div className="order-1 lg:order-2">
-            <h2 className="sinhala stagger-1 mb-6 text-3xl font-bold text-slate-900 lg:text-4xl">
-              අපි දන්නවා මේ journey එක{" "}
-              <span className="text-brand-600">
-                කොච්චර important කියලා
-              </span>
-            </h2>
-
-            <div className="sinhala stagger-2 space-y-4 text-base leading-relaxed text-slate-500">
-              <p>
-                Visa එකට PTE score එකක් ඕනි. ඒත් PTE resources ඔක්කොම
-                English වලින්. ගෙදර ඉඳන් study කරනකොට, stuck වෙනකොට, help
-                ඉල්ලන්න කවුරුවත් නෑ.
-              </p>
-              <p className="text-lg font-medium text-slate-700">
-                ඒ feeling එක අපි තේරුම් ගන්නවා.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ============================================================ */}
       {/*  SOLUTION / USP                                              */}
