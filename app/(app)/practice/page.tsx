@@ -399,7 +399,7 @@ export default function PracticePage() {
     <div>
       {/* Header */}
       <h1 className="text-2xl font-bold tracking-tight">Practice</h1>
-      <p className="sinhala mt-2 text-sm text-slate-500">
+      <p className="sinhala mt-2 text-sm text-slate-900">
         PTE Academic හි කොටස් 3ක් ඇත: Listening, Reading, Speaking &amp;
         Writing. පහතින් ඇති එක් එක් කොටස පුහුණු වන්න. Format එක පිළිබඳ
         වැඩිදුර තොරතුරු සඳහා{" "}
@@ -443,7 +443,7 @@ export default function PracticePage() {
 
       {/* Tab subtitle */}
       {activeCategory.enabled && (
-        <p className="sinhala mt-5 text-sm text-slate-500">
+        <p className="sinhala mt-5 text-sm text-slate-900">
           {activeCategory.subtitle}
         </p>
       )}

@@ -83,3 +83,54 @@ body {
 .animate-feedback-reveal {
   animation: feedback-reveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+/* ---- Landing page scroll-triggered fade-in ---- */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landing-section {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.landing-section.is-visible {
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Staggered children inside a visible section */
+.landing-section.is-visible .stagger-1 {
+  animation: fade-in-up 0.6s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.landing-section.is-visible .stagger-2 {
+  animation: fade-in-up 0.6s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.landing-section.is-visible .stagger-3 {
+  animation: fade-in-up 0.6s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.landing-section.is-visible .stagger-4 {
+  animation: fade-in-up 0.6s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Image placeholder style */
+.img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 1rem;
+  border: 2px dashed #cbd5e1;
+  background-color: #f1f5f9;
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding: 2rem;
+}
+

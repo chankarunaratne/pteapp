@@ -33,9 +33,7 @@ export default function RootLayout({
         <LanguageProvider>
           <div className="flex min-h-screen flex-col">
             <Navbar />
-            <main className="flex-1 px-6 py-10 lg:px-12">
-              <div className="mx-auto w-full max-w-3xl">{children}</div>
-            </main>
+            {children}
           </div>
         </LanguageProvider>
       </body>
