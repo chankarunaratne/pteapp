@@ -40,7 +40,7 @@ export default function AudioPlayer({
   const canPlay = !isCountingDown && !isPlaying && (!playOnce || !hasPlayed);
 
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <div className="flex items-center gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
       <div className="relative h-12 w-12 shrink-0">
         {/* Countdown progress ring; fades out when the countdown finishes */}
         <svg
@@ -56,7 +56,7 @@ export default function AudioPlayer({
             r={RING_RADIUS}
             fill="none"
             strokeWidth="3"
-            className="stroke-brand-100"
+            className="stroke-primary-100"
           />
           {isCountingDown && (
             <circle
@@ -66,7 +66,7 @@ export default function AudioPlayer({
               fill="none"
               strokeWidth="3"
               strokeLinecap="round"
-              className="stroke-brand-500"
+              className="stroke-primary-500"
               style={
                 {
                   "--countdown-ring-circumference": RING_CIRCUMFERENCE,
@@ -84,12 +84,12 @@ export default function AudioPlayer({
           disabled={!onRestart && !canPlay}
           className={`absolute inset-0 flex items-center justify-center rounded-full transition-colors duration-300 ${
             onRestart
-              ? "bg-brand-500 text-white hover:bg-brand-600"
+              ? "bg-primary-500 text-white hover:bg-primary-600"
               : isCountingDown
-                ? "cursor-default bg-brand-50 text-brand-700"
+                ? "cursor-default bg-primary-50 text-primary-700"
                 : canPlay
-                  ? "bg-brand-500 text-white hover:bg-brand-600"
-                  : "cursor-not-allowed bg-slate-200 text-slate-400"
+                  ? "bg-primary-500 text-white hover:bg-primary-600"
+                  : "cursor-not-allowed bg-gray-200 text-gray-400"
           }`}
           aria-label={
             onRestart
@@ -126,7 +126,7 @@ export default function AudioPlayer({
         </button>
       </div>
       <div className="min-w-0">
-        <p className="text-sm font-normal text-slate-600">
+        <p className="text-sm font-normal text-gray-600">
           {onRestart
             ? "Restart question"
             : isCountingDown

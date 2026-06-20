@@ -61,7 +61,7 @@ export default function FibPassage({
   }, [results]);
 
   return (
-    <div className="text-base leading-[2.4] text-slate-800">
+    <div className="text-base leading-[2.4] text-gray-800">
       {segments.map((seg, i) => {
         if (seg.type === "text") {
           return <span key={i}>{seg.value}</span>;
@@ -94,9 +94,9 @@ export default function FibPassage({
                       ? isCorrect
                         ? "border-green-400 bg-green-50 text-green-800 ring-0"
                         : "border-red-400 bg-red-50 text-red-700 ring-0"
-                      : "border-slate-300 bg-white text-slate-900 focus:border-brand-500 focus:ring-brand-100 placeholder:text-slate-400"
+                      : "border-gray-300 bg-white text-gray-900 focus:border-primary-500 focus:ring-primary-100 placeholder:text-gray-400"
                   }
-                  ${disabled && !showResult ? "cursor-not-allowed bg-slate-50" : ""}
+                  ${disabled && !showResult ? "cursor-not-allowed bg-gray-50" : ""}
                 `}
                 aria-label={`Blank ${idx + 1}`}
                 onKeyDown={(e) => {

@@ -20,17 +20,17 @@ export default function FeedbackPanel({ score, question, lang }: Props) {
   if (!hasContent) return null;
 
   return (
-    <div className="mt-6 border-t border-slate-200 pt-6 -mx-6 px-6">
-      <h3 className={`text-sm font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+    <div className="mt-6 border-t border-gray-200 pt-6 -mx-6 px-6">
+      <h3 className={`text-sm font-semibold text-gray-900 ${lang === "si" ? "sinhala" : ""}`}>
         {lang === "si" ? "වැරදි හරිගස්සමු" : "Let's fix the mistakes"}
       </h3>
 
       <div className="mt-3">
         {feedback.points.length > 0 && (
-          <ul className={`space-y-2 text-sm text-slate-700 ${textClass}`}>
+          <ul className={`space-y-2 text-sm text-gray-700 ${textClass}`}>
             {feedback.points.map((point, idx) => (
               <li key={idx} className="flex gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" />
                 <span>{point}</span>
               </li>
             ))}
@@ -39,17 +39,17 @@ export default function FeedbackPanel({ score, question, lang }: Props) {
 
         {feedback.trickyNotes.length > 0 && (
           <div
-            className={`space-y-2 ${feedback.points.length > 0 ? "mt-4 border-t border-brand-100 pt-4" : ""}`}
+            className={`space-y-2 ${feedback.points.length > 0 ? "mt-4 border-t border-primary-100 pt-4" : ""}`}
           >
             {feedback.trickyNotes.map((note) => (
               <div
                 key={note.word}
                 className="rounded-lg bg-white p-3 text-sm shadow-sm"
               >
-                <span className="font-semibold text-brand-700">
+                <span className="font-semibold text-primary-700">
                   {note.word}
                 </span>
-                <p className={`mt-1 text-slate-700 ${textClass}`}>
+                <p className={`mt-1 text-gray-700 ${textClass}`}>
                   {note.note}
                 </p>
               </div>

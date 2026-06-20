@@ -24,7 +24,7 @@ export default function McmaScoreOverview({
             r="15.5"
             fill="none"
             strokeWidth="3"
-            className="stroke-slate-100"
+            className="stroke-gray-100"
           />
           <circle
             cx="18"
@@ -33,25 +33,25 @@ export default function McmaScoreOverview({
             fill="none"
             strokeWidth="3"
             strokeLinecap="round"
-            className={isPerfect ? "stroke-green-500" : pct >= 60 ? "stroke-brand-500" : "stroke-amber-500"}
+            className={isPerfect ? "stroke-green-500" : pct >= 60 ? "stroke-primary-500" : "stroke-amber-500"}
             strokeDasharray={`${(pct / 100) * 97.4} 97.4`}
             style={{ transition: "stroke-dasharray 0.6s ease" }}
           />
         </svg>
-        <span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-slate-900">
+        <span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-gray-900">
           {pct}%
         </span>
       </div>
 
       {/* Score text */}
       <div>
-        <p className="text-lg font-bold text-slate-900">
+        <p className="text-lg font-bold text-gray-900">
           {score.finalScore} / {score.maxScore}{" "}
-          <span className="text-sm font-normal text-slate-500">
+          <span className="text-sm font-normal text-gray-500">
             {lang === "si" ? "ලකුණු" : "points"}
           </span>
         </p>
-        <p className={`mt-0.5 text-xs text-slate-500`}>
+        <p className={`mt-0.5 text-xs text-gray-500`}>
           {lang === "si"
             ? `නිවැරදිව තේරූ පිළිතුරු: ${score.correctSelectedCount} (ලකුණු +${score.correctSelectedCount})`
             : `Correctly selected: ${score.correctSelectedCount} (+${score.correctSelectedCount} pts)`}
@@ -63,7 +63,7 @@ export default function McmaScoreOverview({
             </span>
           )}
         </p>
-        <p className={`mt-1 text-sm ${lang === "si" ? "sinhala" : ""} text-slate-500`}>
+        <p className={`mt-1 text-sm ${lang === "si" ? "sinhala" : ""} text-gray-500`}>
           {isPerfect
             ? lang === "si"
               ? "සියලුම නිවැරදි පිළිතුරු තෝරා ඇත — විශිෂ්ටයි!"

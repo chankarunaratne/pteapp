@@ -49,8 +49,8 @@ export default function InfoPopover({
         title={label}
         className={`sinhala inline-flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded-full text-sm font-semibold transition ${
           open
-            ? "bg-brand-100 text-brand-700"
-            : "bg-slate-100 text-slate-500 hover:bg-brand-50 hover:text-brand-600"
+            ? "bg-primary-100 text-primary-700"
+            : "bg-gray-100 text-gray-500 hover:bg-primary-50 hover:text-primary-600"
         }`}
       >
         අ
@@ -59,11 +59,11 @@ export default function InfoPopover({
       {open && (
         <span
           role="note"
-          className={`absolute top-full z-20 mt-2 block w-72 max-w-[calc(100vw-3rem)] rounded-xl border border-slate-200 bg-white p-3 shadow-lg ${
+          className={`absolute top-full z-20 mt-2 block w-72 max-w-[calc(100vw-3rem)] rounded-xl border border-gray-200 bg-white p-3 shadow-lg ${
             align === "right" ? "right-0" : "left-0"
           }`}
         >
-          <span className="sinhala block text-sm font-normal text-slate-600">
+          <span className="sinhala block text-sm font-normal text-gray-600">
             {children}
           </span>
         </span>

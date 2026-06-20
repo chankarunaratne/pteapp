@@ -75,15 +75,15 @@ function FeatureCard({
 }) {
   return (
     <div
-      className={`${staggerClass} rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm transition-shadow duration-300 hover:shadow-md`}
+      className={`${staggerClass} rounded-2xl border border-gray-200/80 bg-white p-8 shadow-sm transition-shadow duration-300 hover:shadow-md`}
     >
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-2xl">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-2xl">
         {icon}
       </div>
-      <h3 className="sinhala mb-2 text-lg font-semibold text-slate-900">
+      <h3 className="sinhala mb-2 text-lg font-semibold text-gray-900">
         {title}
       </h3>
-      <p className="sinhala text-sm leading-relaxed text-slate-500">
+      <p className="sinhala text-sm leading-relaxed text-gray-500">
         {description}
       </p>
     </div>
@@ -107,13 +107,13 @@ function StepCard({
 }) {
   return (
     <div className={`${staggerClass} text-center`}>
-      <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+      <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">
         {step}
       </div>
-      <h3 className="sinhala mb-2 text-base font-semibold text-slate-900">
+      <h3 className="sinhala mb-2 text-base font-semibold text-gray-900">
         {title}
       </h3>
-      <p className="sinhala text-sm leading-relaxed text-slate-500">
+      <p className="sinhala text-sm leading-relaxed text-gray-500">
         {description}
       </p>
     </div>
@@ -138,13 +138,13 @@ export default function LandingPage() {
           <div>
 
 
-            <h1 className="sinhala stagger-2 mb-6 text-4xl font-bold !leading-tight text-slate-900 lg:text-5xl lg:!leading-[1.15]">
+            <h1 className="sinhala stagger-2 mb-6 text-4xl font-bold !leading-tight text-gray-900 lg:text-5xl lg:!leading-[1.15]">
               PTE සිංහලෙන් <br />
               <span className="whitespace-nowrap">ඉගෙනගෙන{" "}
-              <span className="text-brand-600">පාස් වෙමු.</span></span>
+              <span className="text-primary-600">පාස් වෙමු.</span></span>
             </h1>
 
-            <p className="sinhala stagger-3 mb-8 max-w-lg text-lg leading-relaxed text-slate-500">
+            <p className="sinhala stagger-3 mb-8 max-w-lg text-lg leading-relaxed text-gray-500">
               PTE exam එකට prepare වෙන්න English resources මතම විතරක් depend
               වෙන්න ඕනි නෑ. ඔයාට familiar භාෂාවෙන් practice කරන්න, feedback
               ගන්න.
@@ -153,7 +153,7 @@ export default function LandingPage() {
             <div className="stagger-4 flex flex-wrap items-center gap-4">
               <Link
                 href="/practice"
-                className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand-600/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-xl hover:shadow-brand-700/25"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-primary-600/25 transition-all duration-200 hover:-trangray-y-0.5 hover:bg-primary-700 hover:shadow-xl hover:shadow-primary-700/25"
               >
                 <span className="sinhala">නොමිලේ Practice කරන්න</span>
                 <svg
@@ -174,7 +174,7 @@ export default function LandingPage() {
           </div>
 
           {/* Hero image */}
-          <div className="stagger-3 relative overflow-hidden rounded-lg border border-slate-200/60 shadow-2xl shadow-slate-900/10 aspect-[4/3] lg:aspect-auto lg:min-h-[520px]">
+          <div className="stagger-3 relative overflow-hidden rounded-lg border border-gray-200/60 shadow-2xl shadow-gray-900/10 aspect-[4/3] lg:aspect-auto lg:min-h-[520px]">
             <Image
               src="/images/hero-image.png"
               alt="PTE සිංහලෙන් ඉගෙනගෙන පාස් වෙමු"
@@ -195,9 +195,9 @@ export default function LandingPage() {
         <div className="mx-auto max-w-6xl">
           {/* Section header */}
           <div className="stagger-1 mx-auto mb-14 max-w-2xl text-center">
-            <h2 className="sinhala mb-4 text-3xl font-bold text-slate-900 lg:text-4xl">
+            <h2 className="sinhala mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
               සිංහලෙන් PTE practice කරන්න පුළුවන්{" "}
-              <span className="text-brand-600">
+              <span className="text-primary-600">
                 Sri Lanka වල එකම platform එක
               </span>
             </h2>
@@ -240,14 +240,14 @@ export default function LandingPage() {
       {/* ============================================================ */}
       <section
         id="how-it-works"
-        className="landing-section bg-slate-50 px-6 py-20 lg:px-12"
+        className="landing-section bg-gray-50 px-6 py-20 lg:px-12"
       >
         <div className="mx-auto max-w-4xl">
           {/* Section header */}
           <div className="stagger-1 mb-14 text-center">
-            <h2 className="sinhala mb-3 text-3xl font-bold text-slate-900 lg:text-4xl">
+            <h2 className="sinhala mb-3 text-3xl font-bold text-gray-900 lg:text-4xl">
               Simple steps{" "}
-              <span className="text-brand-600">3කින්</span> practice
+              <span className="text-primary-600">3කින්</span> practice
               කරන්න
             </h2>
           </div>
@@ -281,19 +281,19 @@ export default function LandingPage() {
       {/* ============================================================ */}
       <section className="landing-section bg-white px-6 py-24 lg:px-12">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="sinhala stagger-1 mb-4 text-3xl font-bold text-slate-900 lg:text-4xl">
+          <h2 className="sinhala stagger-1 mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
             ඔයාගේ PTE journey එක{" "}
-            <span className="text-brand-600">අද පටන් ගන්න</span>
+            <span className="text-primary-600">අද පටන් ගන්න</span>
           </h2>
 
-          <p className="sinhala stagger-2 mb-10 text-lg text-slate-500">
+          <p className="sinhala stagger-2 mb-10 text-lg text-gray-500">
             Sign up ඕනි නෑ. Payment ඕනි නෑ. දැන්ම practice කරන්න.
           </p>
 
           <div className="stagger-3">
             <Link
               href="/practice"
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-10 py-4 text-lg font-semibold text-white shadow-lg shadow-brand-600/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-xl hover:shadow-brand-700/25"
+              className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-10 py-4 text-lg font-semibold text-white shadow-lg shadow-primary-600/25 transition-all duration-200 hover:-trangray-y-0.5 hover:bg-primary-700 hover:shadow-xl hover:shadow-primary-700/25"
             >
               <span className="sinhala">නොමිලේ Practice කරන්න</span>
               <svg
@@ -317,20 +317,20 @@ export default function LandingPage() {
       {/* ============================================================ */}
       {/*  FOOTER                                                      */}
       {/* ============================================================ */}
-      <footer className="border-t border-slate-200/80 bg-slate-50 px-6 py-12 lg:px-12">
+      <footer className="border-t border-gray-200/80 bg-gray-50 px-6 py-12 lg:px-12">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row md:items-start">
             {/* Logo & tagline */}
             <div>
               <div className="flex items-center gap-2.5">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-xs font-bold text-white">
                   L
                 </span>
-                <span className="text-base font-semibold tracking-tight text-slate-900">
-                  Lanka<span className="text-brand-600">PTE</span>
+                <span className="text-base font-semibold tracking-tight text-gray-900">
+                  Lanka<span className="text-primary-600">PTE</span>
                 </span>
               </div>
-              <p className="mt-3 text-sm text-slate-400">
+              <p className="mt-3 text-sm text-gray-400">
                 Built for Sri Lankan students 🇱🇰
               </p>
             </div>
@@ -338,24 +338,24 @@ export default function LandingPage() {
             {/* Links */}
             <div className="flex gap-8 text-sm">
               <div className="flex flex-col gap-2">
-                <span className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <span className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
                   Platform
                 </span>
                 <Link
                   href="/practice"
-                  className="text-slate-500 transition-colors hover:text-brand-600"
+                  className="text-gray-500 transition-colors hover:text-primary-600"
                 >
                   Practice
                 </Link>
                 <Link
                   href="/pte-format"
-                  className="text-slate-500 transition-colors hover:text-brand-600"
+                  className="text-gray-500 transition-colors hover:text-primary-600"
                 >
                   PTE Format
                 </Link>
                 <Link
                   href="/course"
-                  className="text-slate-500 transition-colors hover:text-brand-600"
+                  className="text-gray-500 transition-colors hover:text-primary-600"
                 >
                   Course
                 </Link>
@@ -364,7 +364,7 @@ export default function LandingPage() {
           </div>
 
           {/* Bottom bar */}
-          <div className="mt-10 border-t border-slate-200/80 pt-6 text-center text-xs text-slate-400">
+          <div className="mt-10 border-t border-gray-200/80 pt-6 text-center text-xs text-gray-400">
             © {new Date().getFullYear()} LankaPTE. All rights reserved.
           </div>
         </div>

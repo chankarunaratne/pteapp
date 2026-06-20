@@ -47,7 +47,7 @@ export default function ScoreOverview({ score, lang }: { score: ScoreResult; lan
   const { ring, text } = getScoreColor(pct);
 
   return (
-    <div className="flex items-center gap-5 rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-5">
+    <div className="flex items-center gap-5 rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-5">
       {/* Ring */}
       <div className="relative shrink-0">
         <svg
@@ -63,7 +63,7 @@ export default function ScoreOverview({ score, lang }: { score: ScoreResult; lan
             fill="none"
             stroke="currentColor"
             strokeWidth={STROKE_WIDTH}
-            className="text-slate-200"
+            className="text-gray-200"
           />
           <circle
             cx={RING_SIZE / 2}
@@ -87,10 +87,10 @@ export default function ScoreOverview({ score, lang }: { score: ScoreResult; lan
 
       {/* Text */}
       <div className="min-w-0 flex-1">
-        <h2 className={`text-base font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+        <h2 className={`text-base font-semibold text-gray-900 ${lang === "si" ? "sinhala" : ""}`}>
           {getScoreHeading(pct, lang)}
         </h2>
-        <p className={`mt-0.5 text-sm leading-snug text-slate-500 ${lang === "si" ? "sinhala" : ""}`}>
+        <p className={`mt-0.5 text-sm leading-snug text-gray-500 ${lang === "si" ? "sinhala" : ""}`}>
           {getScoreMessage(pct, lang)}
         </p>
       </div>

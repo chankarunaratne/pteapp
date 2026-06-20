@@ -55,14 +55,14 @@ export default function McmaFeedbackPanel({
   }
 
   return (
-    <div className="mt-6 border-t border-slate-200 pt-6 -mx-6 px-6">
-      <h3 className={`text-sm font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+    <div className="mt-6 border-t border-gray-200 pt-6 -mx-6 px-6">
+      <h3 className={`text-sm font-semibold text-gray-900 ${lang === "si" ? "sinhala" : ""}`}>
         {lang === "si" ? "ප්‍රතිපෝෂණය" : "Feedback"}
       </h3>
 
       <p
         className={`mt-2 text-sm font-medium ${
-          isPerfect ? "text-green-700" : score.finalScore > 0 ? "text-brand-700" : "text-amber-700"
+          isPerfect ? "text-green-700" : score.finalScore > 0 ? "text-primary-700" : "text-amber-700"
         } ${lang === "si" ? "sinhala" : ""}`}
       >
         {headline}
@@ -73,9 +73,9 @@ export default function McmaFeedbackPanel({
           {tips.map((tip, i) => (
             <li
               key={i}
-              className={`text-sm text-slate-600 leading-relaxed ${lang === "si" ? "sinhala" : ""}`}
+              className={`text-sm text-gray-600 leading-relaxed ${lang === "si" ? "sinhala" : ""}`}
             >
-              <span className="mr-2 text-slate-400">•</span>
+              <span className="mr-2 text-gray-400">•</span>
               {tip}
             </li>
           ))}
@@ -84,11 +84,11 @@ export default function McmaFeedbackPanel({
 
       {/* Explanation */}
       <div className="mt-5">
-        <h4 className={`text-xs font-semibold uppercase tracking-wider text-slate-400 ${lang === "si" ? "sinhala" : ""}`}>
+        <h4 className={`text-xs font-semibold uppercase tracking-wider text-gray-400 ${lang === "si" ? "sinhala" : ""}`}>
           {lang === "si" ? "පැහැදිලි කිරීම" : "Explanation"}
         </h4>
-        <div className="mt-2.5 rounded-xl border border-slate-100 bg-slate-50/50 p-4">
-          <p className={`text-sm text-slate-700 leading-relaxed ${lang === "si" ? "sinhala font-normal" : "font-normal"}`}>
+        <div className="mt-2.5 rounded-xl border border-gray-100 bg-gray-50/50 p-4">
+          <p className={`text-sm text-gray-700 leading-relaxed ${lang === "si" ? "sinhala font-normal" : "font-normal"}`}>
             {lang === "si" ? explanationSi : explanationEn}
           </p>
         </div>

@@ -327,19 +327,19 @@ function QuestionCard({ qt }: { qt: QuestionType }) {
     return (
       <Link
         href={qt.href}
-        className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-500 hover:shadow-md"
+        className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-primary-500 hover:shadow-md"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h3 className="text-base font-semibold text-slate-900 group-hover:text-brand-700">
+            <h3 className="text-base font-semibold text-gray-900 group-hover:text-primary-700">
               {qt.name}
             </h3>
           </div>
-          <span className="shrink-0 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700">
+          <span className="shrink-0 rounded-full bg-primary-50 px-2.5 py-1 text-xs font-semibold text-primary-700">
             {qt.questionCount} Qs
           </span>
         </div>
-        <p className="mt-2.5 text-sm text-slate-500 leading-relaxed">
+        <p className="mt-2.5 text-sm text-gray-500 leading-relaxed">
           {qt.description}
         </p>
       </Link>
@@ -348,21 +348,21 @@ function QuestionCard({ qt }: { qt: QuestionType }) {
 
   return (
     <div
-      className="rounded-2xl border border-slate-200 bg-slate-100/60 p-5"
+      className="rounded-2xl border border-gray-200 bg-gray-100/60 p-5"
       aria-disabled="true"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="text-base font-semibold text-slate-400">
+          <h3 className="text-base font-semibold text-gray-400">
             {qt.name}
           </h3>
         </div>
-        <span className="flex shrink-0 items-center gap-1 rounded-full bg-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-500">
+        <span className="flex shrink-0 items-center gap-1 rounded-full bg-gray-200 px-2.5 py-1 text-xs font-semibold text-gray-500">
           <LockIcon />
           Soon
         </span>
       </div>
-      <p className="mt-2.5 text-sm text-slate-400 leading-relaxed">
+      <p className="mt-2.5 text-sm text-gray-400 leading-relaxed">
         {qt.description}
       </p>
     </div>
@@ -376,11 +376,11 @@ function QuestionCard({ qt }: { qt: QuestionType }) {
 function ComingSoonPanel({ category }: { category: Category }) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 mb-4">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 text-gray-400 mb-4">
         <LockIcon className="h-6 w-6" />
       </div>
-      <h3 className="text-lg font-semibold text-slate-400">Coming Soon</h3>
-      <p className="sinhala mt-2 max-w-sm text-sm text-slate-400">
+      <h3 className="text-lg font-semibold text-gray-400">Coming Soon</h3>
+      <p className="sinhala mt-2 max-w-sm text-sm text-gray-400">
         {category.subtitle}
       </p>
     </div>
@@ -399,18 +399,18 @@ export default function PracticePage() {
     <div>
       {/* Header */}
       <h1 className="text-2xl font-bold tracking-tight">Practice</h1>
-      <p className="sinhala mt-2 text-sm text-slate-900">
+      <p className="sinhala mt-2 text-sm text-gray-900">
         PTE Academic හි කොටස් 3ක් ඇත: Listening, Reading, Speaking &amp;
         Writing. පහතින් ඇති එක් එක් කොටස පුහුණු වන්න. Format එක පිළිබඳ
         වැඩිදුර තොරතුරු සඳහා{" "}
-        <Link href="/pte-format" className="text-brand-600 hover:underline">
+        <Link href="/pte-format" className="text-primary-600 hover:underline">
           PTE format
         </Link>{" "}
         එක බලන්න.
       </p>
 
       {/* Tabs */}
-      <div className="mt-6 flex gap-1 border-b border-slate-200">
+      <div className="mt-6 flex gap-1 border-b border-gray-200">
         {CATEGORIES.map((cat) => {
           const isActive = cat.id === activeTab;
           return (
@@ -422,19 +422,19 @@ export default function PracticePage() {
                 rounded-t-lg cursor-pointer
                 ${
                   isActive
-                    ? "text-brand-700 bg-brand-50/60"
-                    : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
+                    ? "text-primary-700 bg-primary-50/60"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
                 }
               `}
             >
               {cat.icon}
               <span>{cat.name}</span>
               {!cat.enabled && (
-                <LockIcon className="h-3 w-3 text-slate-400" />
+                <LockIcon className="h-3 w-3 text-gray-400" />
               )}
               {/* Active indicator bar */}
               {isActive && (
-                <span className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-brand-600" />
+                <span className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-primary-600" />
               )}
             </button>
           );
@@ -443,7 +443,7 @@ export default function PracticePage() {
 
       {/* Tab subtitle */}
       {activeCategory.enabled && (
-        <p className="sinhala mt-5 text-sm text-slate-900">
+        <p className="sinhala mt-5 text-sm text-gray-900">
           {activeCategory.subtitle}
         </p>
       )}

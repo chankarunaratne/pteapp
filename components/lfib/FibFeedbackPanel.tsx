@@ -68,9 +68,9 @@ export default function FibFeedbackPanel({
   }
 
   return (
-    <div className="mt-6 border-t border-slate-200 pt-6 -mx-6 px-6">
+    <div className="mt-6 border-t border-gray-200 pt-6 -mx-6 px-6">
       <h3
-        className={`text-sm font-semibold text-slate-900 ${
+        className={`text-sm font-semibold text-gray-900 ${
           lang === "si" ? "sinhala" : ""
         }`}
       >
@@ -79,7 +79,7 @@ export default function FibFeedbackPanel({
 
       <p
         className={`mt-2 text-sm font-medium ${
-          isPerfect ? "text-green-700" : ratio >= 0.7 ? "text-brand-700" : "text-amber-700"
+          isPerfect ? "text-green-700" : ratio >= 0.7 ? "text-primary-700" : "text-amber-700"
         } ${lang === "si" ? "sinhala" : ""}`}
       >
         {headline}
@@ -90,11 +90,11 @@ export default function FibFeedbackPanel({
           {points.map((point, i) => (
             <li
               key={i}
-              className={`text-sm text-slate-600 leading-relaxed ${
+              className={`text-sm text-gray-600 leading-relaxed ${
                 lang === "si" ? "sinhala" : ""
               }`}
             >
-              <span className="mr-2 text-slate-400">•</span>
+              <span className="mr-2 text-gray-400">•</span>
               {point}
             </li>
           ))}

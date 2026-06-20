@@ -21,7 +21,7 @@ export default function WordDiff({ score, lang }: { score: ScoreResult; lang: Fe
     switch (w.status) {
       case "correct":
         return (
-          <span key={idx} className="text-slate-700">
+          <span key={idx} className="text-gray-700">
             {w.word}
           </span>
         );
@@ -48,7 +48,7 @@ export default function WordDiff({ score, lang }: { score: ScoreResult; lang: Fe
         return (
           <span
             key={idx}
-            className="rounded bg-slate-100 px-0.5 text-slate-400 line-through"
+            className="rounded bg-gray-100 px-0.5 text-gray-400 line-through"
           >
             {w.typed}
           </span>
@@ -57,7 +57,7 @@ export default function WordDiff({ score, lang }: { score: ScoreResult; lang: Fe
   });
 
   const isSi = lang === "si";
-  const labelClass = `shrink-0 min-w-[5rem] text-slate-500 ${
+  const labelClass = `shrink-0 min-w-[5rem] text-gray-500 ${
     isSi
       ? "text-sm font-normal sinhala pt-0.5"
       : "text-xs font-semibold uppercase tracking-wide pt-0.5"
@@ -70,11 +70,11 @@ export default function WordDiff({ score, lang }: { score: ScoreResult; lang: Fe
         <span className={labelClass}>
           {isSi ? "නිවැරදි" : "Correct"}
         </span>
-        <p className="text-slate-700">{correctWords.join(" ")}</p>
+        <p className="text-gray-700">{correctWords.join(" ")}</p>
       </div>
 
       {/* Divider */}
-      <div className="border-t border-dashed border-slate-200" />
+      <div className="border-t border-dashed border-gray-200" />
 
       {/* User's attempt with inline error highlights */}
       <div className="flex gap-3">

@@ -112,7 +112,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white">
+    <header className="sticky top-0 z-50 border-b border-gray-200/80 bg-white">
       <div className="flex h-16 w-full items-center justify-between px-6">
         {/* -------- Left: Logo + Nav -------- */}
         <div className="flex h-full items-center gap-10">
@@ -122,11 +122,11 @@ export default function Navbar() {
             className="flex items-center gap-2.5"
           >
             {/* Blue circle icon */}
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-xs font-bold text-white">
               L
             </span>
-            <span className="text-base font-semibold tracking-tight text-slate-900">
-              Lanka<span className="text-brand-600">PTE</span>
+            <span className="text-base font-semibold tracking-tight text-gray-900">
+              Lanka<span className="text-primary-600">PTE</span>
             </span>
           </Link>
 
@@ -135,7 +135,7 @@ export default function Navbar() {
             {/* Sliding underline indicator */}
             {pill.ready && (
               <span
-                className="absolute bottom-0 h-0.5 rounded-full bg-brand-600 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+                className="absolute bottom-0 h-0.5 rounded-full bg-primary-600 transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
                 style={{
                   left: pill.left,
                   width: pill.width,
@@ -158,8 +158,8 @@ export default function Navbar() {
                   data-active={isActive}
                   className={`relative z-10 px-3 py-2 text-base font-medium transition-colors duration-200 ${
                     isActive
-                      ? "text-slate-900"
-                      : "text-slate-500 hover:text-slate-900"
+                      ? "text-gray-900"
+                      : "text-gray-500 hover:text-gray-900"
                   }`}
                 >
                   {item.label}
@@ -176,7 +176,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={handleLogout}
-              className="cursor-pointer rounded-lg px-5 py-2 text-base font-medium text-slate-500 transition-colors hover:text-slate-900"
+              className="cursor-pointer rounded-lg px-5 py-2 text-base font-medium text-gray-500 transition-colors hover:text-gray-900"
             >
               Sign out
             </button>
@@ -184,7 +184,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={handleLogin}
-              className="cursor-pointer rounded-lg bg-brand-600 px-7 py-2 text-base font-medium text-white transition-colors hover:bg-brand-700"
+              className="cursor-pointer rounded-lg bg-primary-600 px-7 py-2 text-base font-medium text-white transition-colors hover:bg-primary-700"
             >
               Sign in
             </button>
@@ -195,7 +195,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setSettingsOpen((prev) => !prev)}
-              className="flex cursor-pointer items-center justify-center rounded-full p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+              className="flex cursor-pointer items-center justify-center rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
               aria-expanded={settingsOpen}
               aria-haspopup="true"
               aria-label="Settings"
@@ -223,20 +223,20 @@ export default function Navbar() {
 
             {/* Dropdown menu */}
             {settingsOpen && (
-              <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-xl border border-slate-200/80 bg-white p-2 shadow-lg shadow-slate-200/50 ring-1 ring-black/5">
+              <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-xl border border-gray-200/80 bg-white p-2 shadow-lg shadow-gray-200/50 ring-1 ring-black/5">
                 {/* Feedback language section */}
                 <div className="px-3 py-2">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
                     Feedback language
                   </p>
-                  <div className="mt-2 flex overflow-hidden rounded-lg border border-slate-300 text-xs font-semibold">
+                  <div className="mt-2 flex overflow-hidden rounded-lg border border-gray-300 text-xs font-semibold">
                     <button
                       type="button"
                       onClick={() => setLang("si")}
                       className={`sinhala flex-1 cursor-pointer px-3 py-1.5 transition ${
                         lang === "si"
-                          ? "bg-brand-600 text-white"
-                          : "bg-white text-slate-600 hover:bg-slate-50"
+                          ? "bg-primary-600 text-white"
+                          : "bg-white text-gray-600 hover:bg-gray-50"
                       }`}
                     >
                       සිංහල
@@ -246,8 +246,8 @@ export default function Navbar() {
                       onClick={() => setLang("en")}
                       className={`flex-1 cursor-pointer px-3 py-1.5 transition ${
                         lang === "en"
-                          ? "bg-brand-600 text-white"
-                          : "bg-white text-slate-600 hover:bg-slate-50"
+                          ? "bg-primary-600 text-white"
+                          : "bg-white text-gray-600 hover:bg-gray-50"
                       }`}
                     >
                       English

@@ -52,14 +52,14 @@ export default function HiwFeedbackPanel({
   }
 
   return (
-    <div className="mt-6 border-t border-slate-200 pt-6 -mx-6 px-6">
-      <h3 className={`text-sm font-semibold text-slate-900 ${lang === "si" ? "sinhala" : ""}`}>
+    <div className="mt-6 border-t border-gray-200 pt-6 -mx-6 px-6">
+      <h3 className={`text-sm font-semibold text-gray-900 ${lang === "si" ? "sinhala" : ""}`}>
         {lang === "si" ? "ප්‍රතිපෝෂණය" : "Feedback"}
       </h3>
 
       <p
         className={`mt-2 text-sm font-medium ${
-          isPerfect ? "text-green-700" : ratio >= 0.7 ? "text-brand-700" : "text-amber-700"
+          isPerfect ? "text-green-700" : ratio >= 0.7 ? "text-primary-700" : "text-amber-700"
         } ${lang === "si" ? "sinhala" : ""}`}
       >
         {headline}
@@ -70,9 +70,9 @@ export default function HiwFeedbackPanel({
           {tips.map((tip, i) => (
             <li
               key={i}
-              className={`text-sm text-slate-600 leading-relaxed ${lang === "si" ? "sinhala" : ""}`}
+              className={`text-sm text-gray-600 leading-relaxed ${lang === "si" ? "sinhala" : ""}`}
             >
-              <span className="mr-2 text-slate-400">•</span>
+              <span className="mr-2 text-gray-400">•</span>
               {tip}
             </li>
           ))}
@@ -81,27 +81,27 @@ export default function HiwFeedbackPanel({
 
       {/* Comparisons */}
       <div className="mt-5">
-        <h4 className={`text-xs font-semibold uppercase tracking-wider text-slate-400 ${lang === "si" ? "sinhala" : ""}`}>
+        <h4 className={`text-xs font-semibold uppercase tracking-wider text-gray-400 ${lang === "si" ? "sinhala" : ""}`}>
           {lang === "si" ? "වචන සංසන්දනය" : "Word Comparisons"}
         </h4>
 
-        <div className="mt-3 overflow-hidden rounded-xl border border-slate-200 bg-white">
+        <div className="mt-3 overflow-hidden rounded-xl border border-gray-200 bg-white">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
-              <thead className="bg-slate-50 text-xs font-semibold text-slate-500 uppercase">
+            <table className="min-w-full divide-y divide-gray-200 text-left text-sm">
+              <thead className="bg-gray-50 text-xs font-semibold text-gray-500 uppercase">
                 <tr>
                   <th className="px-4 py-3">{lang === "si" ? "පිටපතේ තිබූ වචනය" : "Written word"}</th>
                   <th className="px-4 py-3">{lang === "si" ? "ඇත්තටම ඇසුණු වචනය" : "Spoken word"}</th>
                   <th className="px-4 py-3">{lang === "si" ? "ප්‍රතිඵලය" : "Your Result"}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-gray-100">
                 {incorrectWords.map((w) => {
                   const wasFound = w.status === "correct-identified";
                   return (
-                    <tr key={w.index} className="hover:bg-slate-50/50">
-                      <td className="px-4 py-3 font-medium text-slate-900">{w.word}</td>
-                      <td className="px-4 py-3 text-slate-600 font-medium text-emerald-600">
+                    <tr key={w.index} className="hover:bg-gray-50/50">
+                      <td className="px-4 py-3 font-medium text-gray-900">{w.word}</td>
+                      <td className="px-4 py-3 text-gray-600 font-medium text-emerald-600">
                         {w.correctWord}
                       </td>
                       <td className="px-4 py-3">
@@ -122,8 +122,8 @@ export default function HiwFeedbackPanel({
                 {/* Show false positive selections if any */}
                 {falseSelections.map((w) => (
                   <tr key={w.index} className="bg-rose-50/20 hover:bg-rose-50/40">
-                    <td className="px-4 py-3 font-medium text-slate-900">{w.word}</td>
-                    <td className="px-4 py-3 text-slate-400 italic">
+                    <td className="px-4 py-3 font-medium text-gray-900">{w.word}</td>
+                    <td className="px-4 py-3 text-gray-400 italic">
                       {lang === "si" ? "නිවැරදි වචනයකි" : "Correct word"}
                     </td>
                     <td className="px-4 py-3">

@@ -28,7 +28,7 @@ export default function HiwTranscript({
   };
 
   return (
-    <div className="text-[15px] sm:text-base leading-relaxed text-slate-800 tracking-normal select-none font-normal">
+    <div className="text-[15px] sm:text-base leading-relaxed text-gray-800 tracking-normal select-none font-normal">
       {tokens.map((token, index) => {
         const isSelected = selectedIndices.includes(index);
         const feedback = feedbacks?.[index];
@@ -47,16 +47,16 @@ export default function HiwTranscript({
           } else if (feedback.status === "missed") {
             wordClass = "bg-amber-100 text-amber-950 font-medium border-b border-dashed border-amber-600";
           } else {
-            wordClass = "text-slate-800/60";
+            wordClass = "text-gray-800/60";
           }
         } else {
           // Question mode styling
           if (isSelected) {
-            wordClass = "bg-[#fcf3a1] text-slate-950 border border-[#e2d887] font-normal";
+            wordClass = "bg-[#fcf3a1] text-gray-950 border border-[#e2d887] font-normal";
           } else {
             wordClass = disabled
-              ? "text-slate-500"
-              : "hover:bg-slate-200/60 text-slate-800 cursor-pointer";
+              ? "text-gray-500"
+              : "hover:bg-gray-200/60 text-gray-800 cursor-pointer";
           }
         }
 
@@ -75,7 +75,7 @@ export default function HiwTranscript({
               className={`
                 inline rounded px-0.5 py-0.5 transition-all duration-150 outline-none
                 ${wordClass}
-                ${!disabled && !feedbacks ? "focus-visible:ring-1 focus-visible:ring-brand-500" : ""}
+                ${!disabled && !feedbacks ? "focus-visible:ring-1 focus-visible:ring-primary-500" : ""}
               `}
             >
               {prefix}
