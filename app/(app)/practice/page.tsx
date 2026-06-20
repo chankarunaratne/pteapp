@@ -114,9 +114,9 @@ const CATEGORIES: Category[] = [
         shortName: "SWT",
         description:
           "Read a text and write a one-sentence summary in 5–75 words.",
-        href: "#",
-        enabled: false,
-        questionCount: 0,
+        href: "/practice/speaking/swt",
+        enabled: true,
+        questionCount: 1,
       },
       {
         name: "Write Essay",

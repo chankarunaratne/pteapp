@@ -297,3 +297,48 @@ export const HCS_QUESTIONS: HcsQuestion[] = [
   }
 ];
 
+/* ------------------------------------------------------------------ */
+/*  Speaking & Writing: Summarize Written Text (SWT)                   */
+/* ------------------------------------------------------------------ */
+
+export interface SwtQuestion {
+  id: string;
+  /** The reading passage (up to ~300 words). */
+  passage: string;
+  /** Key concepts/terms that a good summary should mention. */
+  keyPoints: string[];
+  /** A model one-sentence summary for reference. */
+  sampleAnswer: string;
+  difficulty: Difficulty;
+  explanationEn: string;
+  explanationSi: string;
+}
+
+export const SWT_QUESTIONS: SwtQuestion[] = [
+  {
+    id: "swt-1",
+    passage:
+      "For millions of years, Mediterranean sea turtles have been coming to the shore of southern Lebanon to lay their eggs. Every summer, their babies hatch and literally run for their lives on the strip of sand that separates their nests from the sea. An endangered species, they had been largely ignored in this part of Lebanon until two women set out to protect them. Mona Khalil was inspired by a walk on the beach during a visit to her homeland, when she first saw the turtles. Upon learning that they were close to disappearing from her country, Khalil decided to \"come back and do something about them.\"\n\nThe next year, 2000, she returned and teamed up with Habiba Fayed, who shares her passion for the environment. They opened a bed-and-breakfast in the Khalil family home to finance their efforts. Guests could simply vacation or, in the spirit of ecotourism, they could help the owners protect the turtles' nests and keep the beach clean.\n\nFemale turtles travel to the exact spot where they were born to dig their nests in the sand, laying an average of 70 to 100 eggs. This is the moment when the women intervene. They protect the nests from predators by burying an iron grid in the sand above the eggs. The spaces on the grid are large enough to allow the baby turtles to emerge after a month and find their way to the sea... and to a chance at life.",
+    keyPoints: [
+      "Mediterranean sea turtles",
+      "endangered",
+      "Lebanon",
+      "Mona Khalil",
+      "Habiba Fayed",
+      "protect",
+      "nests",
+      "ecotourism",
+      "bed-and-breakfast",
+      "iron grid",
+      "predators",
+    ],
+    sampleAnswer:
+      "Two women, Mona Khalil and Habiba Fayed, have been working to protect endangered Mediterranean sea turtles in southern Lebanon by opening an ecotourism bed-and-breakfast to fund their conservation efforts, which include burying iron grids over the turtles' nests to shield the eggs from predators and give hatchlings a chance to reach the sea.",
+    difficulty: "medium",
+    explanationEn:
+      "The passage describes how two women — Mona Khalil and Habiba Fayed — took action to protect endangered Mediterranean sea turtles nesting on the shores of southern Lebanon. They funded their conservation work through an ecotourism bed-and-breakfast and physically protected the nests using iron grids buried in the sand. A strong summary should capture the who (the two women), the what (protecting endangered sea turtles), the where (southern Lebanon), and the how (ecotourism funding + iron grid protection).",
+    explanationSi:
+      "මෙම ඡේදය විස්තර කරන්නේ මොනා කලීල් (Mona Khalil) සහ හබීබා ෆයඩ් (Habiba Fayed) යන කාන්තාවන් දෙදෙනා දකුණු ලෙබනනයේ වෙරළ තීරයේ බිත්තර දමන වඳවීමේ තර්ජනයට ලක්ව ඇති මධ්‍යධරණී මුහුදු කැස්බෑවන් ආරක්ෂා කිරීමට ක්‍රියා කළ ආකාරයයි. ඔවුන් සංරක්ෂණ කටයුතු සඳහා මුදල් සපයා ගත්තේ පරිසර සංචාරක ආතිථ්‍ය ගෙයක් (bed-and-breakfast) පවත්වාගෙන යමිනි. එමෙන්ම වැලිවල යකඩ දැලක් (iron grid) වළලා බිත්තර දමන ස්ථාන ආරක්ෂා කළහ. හොඳ සාරාංශයක් කවුද (කාන්තාවන් දෙදෙනා), කුමක්ද (කැස්බෑවන් ආරක්ෂා කිරීම), කොහේද (දකුණු ලෙබනනය), සහ කෙසේද (පරිසර සංචාරක අරමුදල් + යකඩ දැල් ආරක්ෂණය) යන කරුණු ග්‍රහණය කළ යුතුය.",
+  },
+];
+
