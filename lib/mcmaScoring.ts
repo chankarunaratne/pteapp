@@ -1,4 +1,4 @@
-import type { McmaQuestion } from "./questions";
+import type { McmaQuestion, RmcmaQuestion } from "./questions";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -32,7 +32,7 @@ export interface McmaScoreResult {
  * Total score is floor-capped at 0.
  */
 export function scoreMcmaAnswer(
-  question: McmaQuestion,
+  question: McmaQuestion | RmcmaQuestion,
   selectedIndices: number[]
 ): McmaScoreResult {
   const optionFeedbacks: McmaOptionFeedback[] = question.options.map((option, index) => {

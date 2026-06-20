@@ -8,11 +8,13 @@ export default function McmaFeedbackPanel({
   explanationEn,
   explanationSi,
   lang = "si",
+  taskType = "listening",
 }: {
   score: McmaScoreResult;
   explanationEn: string;
   explanationSi: string;
   lang?: FeedbackLang;
+  taskType?: "reading" | "listening";
 }) {
   const isPerfect = score.finalScore === score.maxScore;
   const ratio = score.finalScore / score.maxScore;
@@ -23,7 +25,11 @@ export default function McmaFeedbackPanel({
   if (lang === "si") {
     if (isPerfect) {
       headline = "විශිෂ්ටයි! සියලුම නිවැරදි පිළිතුරු තෝරාගෙන තිබේ.";
-      tips.push("ඊළඟ ප්‍රශ්නයටත් මේ වගේම හොඳින් සවන් දෙන්න.");
+      tips.push(
+        taskType === "reading"
+          ? "ඊළඟ ප්‍රශ්නයටත් මේ වගේම හොඳින් කියවන්න."
+          : "ඊළඟ ප්‍රශ්නයටත් මේ වගේම හොඳින් සවන් දෙන්න."
+      );
     } else if (score.finalScore > 0) {
       headline = "හොඳ උත්සාහයක්! නිවැරදි පිළිතුරු කිහිපයක් හඳුනාගෙන තිබේ.";
       tips.push("මඟ හැරුණු හෝ වැරදුණු පිළිතුරු පහතින් බලා ඉගෙන ගන්න.");
@@ -33,7 +39,11 @@ export default function McmaFeedbackPanel({
     }
 
     if (score.incorrectSelectedCount > 0) {
-      tips.push("අවධානයෙන් සවන් දෙන්න: වැරදි පිළිතුරු තේරීමෙන් ලකුණු අඩු වේ (සෘණ ලකුණු).");
+      tips.push(
+        taskType === "reading"
+          ? "ප්‍රවේශමෙන් කියවන්න: වැරදි පිළිතුරු තේරීමෙන් ලකුණු අඩු වේ (සෘණ ලකුණු)."
+          : "අවධානයෙන් සවන් දෙන්න: වැරදි පිළිතුරු තේරීමෙන් ලකුණු අඩු වේ (සෘණ ලකුණු)."
+      );
     }
     tips.push("PTE MCMA ප්‍රශ්න වලදී උපරිම ලකුණු ලබාගැනීමට, 100% ක් විශ්වාස නැති පිළිතුරු තේරීමෙන් වළකින්න.");
   } else {
@@ -49,7 +59,11 @@ export default function McmaFeedbackPanel({
     }
 
     if (score.incorrectSelectedCount > 0) {
-      tips.push("Listen carefully: selecting incorrect choices incurs a negative penalty.");
+      tips.push(
+        taskType === "reading"
+          ? "Read carefully: selecting incorrect choices incurs a negative penalty."
+          : "Listen carefully: selecting incorrect choices incurs a negative penalty."
+      );
     }
     tips.push("To maximize your score in PTE MCMA, avoid selecting options if you are not completely sure.");
   }

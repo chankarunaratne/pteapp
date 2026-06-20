@@ -314,6 +314,74 @@ export interface SwtQuestion {
   explanationSi: string;
 }
 
+/* ------------------------------------------------------------------ */
+/*  Speaking & Writing: Write Essay (WE)                               */
+/* ------------------------------------------------------------------ */
+
+export interface WeQuestion {
+  id: string;
+  /** The essay prompt (2-3 sentences). */
+  prompt: string;
+  /** Key arguments / angles a good essay should address. */
+  keyPoints: string[];
+  /** A model essay for reference. */
+  sampleAnswer: string;
+  difficulty: Difficulty;
+  explanationEn: string;
+  explanationSi: string;
+}
+
+export const WE_QUESTIONS: WeQuestion[] = [
+  {
+    id: "we-1",
+    prompt:
+      "Some people think placing advertisements in schools is a great resource for public schools that need additional funding, while others think it exploits children by treating them as a captive audience for corporate sponsors. Choose which position you most agree with and discuss why you chose that position. Support your point of view with details from your own experiences, observations or reading.",
+    keyPoints: [
+      "funding",
+      "advertisements",
+      "schools",
+      "children",
+      "corporate",
+      "ethics",
+      "education",
+      "revenue",
+      "influence",
+      "public",
+    ],
+    sampleAnswer:
+      "While public schools across the globe continue to face budgetary constraints that limit the quality of education they can provide, the introduction of advertisements within school premises is not the appropriate solution, as it risks transforming the learning environment into a marketplace where impressionable young minds become targets of corporate marketing strategies.\n\nAdmittedly, advertising revenue can supplement tight school budgets, funding new equipment, extracurricular activities, and facility upgrades that would otherwise be unaffordable. In some regions, schools have successfully partnered with local businesses to create mutually beneficial arrangements without compromising educational integrity. However, these cases remain the exception rather than the rule.\n\nThe primary concern is that children, particularly those in primary and secondary education, lack the critical thinking skills to distinguish between educational content and commercial messaging. Constant exposure to branded materials normalises consumerism at a formative age, potentially shaping lifelong purchasing habits before students can make informed choices. Moreover, allowing corporate sponsors into classrooms creates an inherent power imbalance, where companies may seek to influence curriculum content or school policies in exchange for financial support.\n\nAlternative funding mechanisms, such as increased government investment, community fundraising, and grant programmes, offer sustainable solutions that do not compromise the neutrality of the educational environment. Schools should remain spaces dedicated exclusively to learning and personal development.\n\nIn conclusion, the short-term financial gains from school advertisements are outweighed by the long-term ethical implications of exposing children to commercial influence. Protecting the sanctity of education must remain the priority.",
+    difficulty: "medium",
+    explanationEn:
+      "A strong essay should clearly state a position (for or against advertisements in schools), provide supporting arguments with specific examples, acknowledge the opposing view, and conclude with a clear restatement of the position. The essay must be 200–300 words and demonstrate good grammar, vocabulary, and logical structure.",
+    explanationSi:
+      "හොඳ රචනාවක් පැහැදිලි ස්ථාවරයක් (පාසල්වල වෙළඳ දැන්වීම් සඳහා හෝ විරුද්ධව) ප්‍රකාශ කළ යුතු අතර, නිශ්චිත උදාහරණ සහිත සහාය තර්ක ඉදිරිපත් කළ යුතුය, ප්‍රතිවිරුද්ධ මතය පිළිගත යුතුය, සහ ස්ථාවරය පැහැදිලිව නැවත ප්‍රකාශ කරමින් නිගමනය කළ යුතුය. රචනාව වචන 200–300 අතර විය යුතු අතර හොඳ ව්‍යාකරණය, වචන මාලාව සහ තාර්කික ව්‍යුහය පෙන්විය යුතුය.",
+  },
+  {
+    id: "we-2",
+    prompt:
+      "In the modern world, the ability to communicate effectively in more than one language is becoming increasingly important. Do you agree or disagree with the statement that learning a foreign language should be made compulsory for all school students? Support your point of view with reasons and examples from your own experience or observations.",
+    keyPoints: [
+      "language",
+      "compulsory",
+      "communication",
+      "globalisation",
+      "culture",
+      "cognitive",
+      "education",
+      "students",
+      "multilingual",
+      "career",
+    ],
+    sampleAnswer:
+      "In an increasingly interconnected world, the ability to communicate across linguistic boundaries has become not merely advantageous but essential. I firmly agree that learning a foreign language should be a compulsory component of school curricula, as the benefits extend far beyond simple communication skills.\n\nFirstly, research consistently demonstrates that bilingual and multilingual individuals exhibit enhanced cognitive abilities, including improved problem-solving skills, greater mental flexibility, and delayed onset of age-related cognitive decline. These neurological advantages alone justify the inclusion of language learning in education. Furthermore, studying a foreign language inherently involves exploring another culture, fostering empathy, tolerance, and a broader worldview that prepares students for life in a globalised society.\n\nFrom a practical standpoint, multilingual graduates enjoy significantly better career prospects in the international job market. Companies operating across borders actively seek employees who can navigate different linguistic and cultural environments. My own experience studying Japanese during secondary school not only opened professional opportunities but also deepened my understanding of East Asian history and philosophy in ways that purely English-language resources could not.\n\nCritics may argue that compulsory language study places an unnecessary burden on students already managing heavy workloads. However, starting language education early, when children's capacity for linguistic acquisition is at its peak, minimises this burden while maximising long-term benefits.\n\nIn conclusion, making foreign language learning compulsory equips students with cognitive, cultural, and professional advantages that are indispensable in the twenty-first century. The investment in language education is an investment in a more connected and understanding world.",
+    difficulty: "medium",
+    explanationEn:
+      "The essay should take a clear stance on whether foreign language learning should be compulsory, provide supporting arguments covering cognitive, cultural, and career benefits, use personal examples or observations, address counterarguments, and maintain a 200–300 word count with proper structure.",
+    explanationSi:
+      "රචනාව විදේශ භාෂා ඉගෙනීම අනිවාර්ය කළ යුතුද යන්න පිළිබඳ පැහැදිලි ස්ථාවරයක් ගත යුතු අතර, සංජානනාත්මක, සංස්කෘතික සහ වෘත්තීය ප්‍රතිලාභ ආවරණය කරන සහාය තර්ක ඉදිරිපත් කළ යුතුය, පෞද්ගලික උදාහරණ හෝ නිරීක්ෂණ භාවිතා කළ යුතුය, ප්‍රති-තර්කවලට පිළිතුරු දිය යුතුය, සහ නිසි ව්‍යුහයක් සමඟ වචන 200–300 ක ගණනක් පවත්වා ගත යුතුය.",
+  },
+];
+
 export const SWT_QUESTIONS: SwtQuestion[] = [
   {
     id: "swt-1",
@@ -341,4 +409,137 @@ export const SWT_QUESTIONS: SwtQuestion[] = [
       "මෙම ඡේදය විස්තර කරන්නේ මොනා කලීල් (Mona Khalil) සහ හබීබා ෆයඩ් (Habiba Fayed) යන කාන්තාවන් දෙදෙනා දකුණු ලෙබනනයේ වෙරළ තීරයේ බිත්තර දමන වඳවීමේ තර්ජනයට ලක්ව ඇති මධ්‍යධරණී මුහුදු කැස්බෑවන් ආරක්ෂා කිරීමට ක්‍රියා කළ ආකාරයයි. ඔවුන් සංරක්ෂණ කටයුතු සඳහා මුදල් සපයා ගත්තේ පරිසර සංචාරක ආතිථ්‍ය ගෙයක් (bed-and-breakfast) පවත්වාගෙන යමිනි. එමෙන්ම වැලිවල යකඩ දැලක් (iron grid) වළලා බිත්තර දමන ස්ථාන ආරක්ෂා කළහ. හොඳ සාරාංශයක් කවුද (කාන්තාවන් දෙදෙනා), කුමක්ද (කැස්බෑවන් ආරක්ෂා කිරීම), කොහේද (දකුණු ලෙබනනය), සහ කෙසේද (පරිසර සංචාරක අරමුදල් + යකඩ දැල් ආරක්ෂණය) යන කරුණු ග්‍රහණය කළ යුතුය.",
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  Reading: Fill in the Blanks — Dropdown (R-FIB)                     */
+/* ------------------------------------------------------------------ */
+
+export interface RfibBlank {
+  /** The correct word for this blank. */
+  answer: string;
+  /** The dropdown options (always includes the correct answer). */
+  options: string[];
+}
+
+export interface RfibQuestion {
+  id: string;
+  /**
+   * Passage with blanks marked as {{answer|opt1,opt2,opt3,opt4}}.
+   * The answer before the pipe is the correct one; the options after
+   * the pipe are all the dropdown choices (including the correct one).
+   */
+  passage: string;
+  /** Pre-parsed blanks (derived at build time for convenience). */
+  blanks: RfibBlank[];
+  difficulty: Difficulty;
+}
+
+export const RFIB_QUESTIONS: RfibQuestion[] = [
+  {
+    id: "rfib-1",
+    passage:
+      "The evidence for a genetic basis of antisocial behavior stems from several different lines of research. First, behavioral genetic studies have {{demonstrated|demonstrated,argued,imagined,overlooked}} that heredity plays a role in antisocial behavior, including various forms of aggression and criminality. Behavior genetic studies typically compare genetically {{related|related,unrelated,similar,compatible}} individuals, compared to non-relatives living in the same environment, to establish the contribution of genes and environment. Second, various personality factors such as impulsivity, sensation-seeking, risk-taking, and callous-unemotional traits have been identified as {{underlying|underlying,overcoming,replacing,ignoring}} antisocial behavior and these personality factors are at least partly genetically {{determined|determined,eliminated,assumed,attempted}}. Third, psychiatric outcomes related to antisocial behavior, including antisocial personality disorder, psychopathy, and substance use and abuse, have also been {{examined|examined,discarded,manufactured,overlooked}} in genetically informative designs, and each of these has been found to have genetic links.",
+    blanks: [
+      {
+        answer: "demonstrated",
+        options: ["demonstrated", "argued", "imagined", "overlooked"],
+      },
+      {
+        answer: "related",
+        options: ["related", "unrelated", "similar", "compatible"],
+      },
+      {
+        answer: "underlying",
+        options: ["underlying", "overcoming", "replacing", "ignoring"],
+      },
+      {
+        answer: "determined",
+        options: ["determined", "eliminated", "assumed", "attempted"],
+      },
+      {
+        answer: "examined",
+        options: ["examined", "discarded", "manufactured", "overlooked"],
+      },
+    ],
+    difficulty: "medium",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Reading: Multiple-choice, Choose Multiple Answers (R-MCMA)         */
+/* ------------------------------------------------------------------ */
+
+export interface RmcmaQuestion {
+  id: string;
+  passage: string;
+  questionText: string;
+  options: string[];
+  correctIndices: number[];
+  difficulty: Difficulty;
+  explanationSi: string;
+  explanationEn: string;
+}
+
+export const RMCMA_QUESTIONS: RmcmaQuestion[] = [
+  {
+    id: "rmcma-1",
+    passage:
+      "Adaptations enable living organisms to cope with environmental stresses and pressures. Adaptation can be structural or behavioral. Structural adaptations are special body parts of an organism that help it to survive in its natural habitat (e.g., skin color, shape, body covering). Behavioral adaptations are the ways a particular organism behaves to survive in its natural habitat. Physiological adaptations are systems present in an organism that allow it to perform certain biochemical reactions (e.g. making venom, secreting slime, being able to keep a constant body temperature). Adaptations are traits that have been selected for by natural selection. The underlying genetic basis for the adaptive trait did not arise as a consequence of the environment; the genetic variant pre-existed and was subsequently selected because it provided the bearer of that variant some advantage.",
+    questionText: "Which of the following are true statements about adaptations?",
+    options: [
+      "They can be structural, behavioral, or physiological adaptations.",
+      "They mostly occur in physical appearances of special body parts of an organism.",
+      "They are new genes created to increase an organism's chance of survival.",
+      "They are genes selected due to the benefits they offer in a particular environment.",
+      "They are created by the environment to help an organism survive in its habitat."
+    ],
+    correctIndices: [0, 3],
+    difficulty: "medium",
+    explanationEn: "According to the text, adaptations can be structural, behavioral, or physiological. Furthermore, the genetic basis for adaptations does not arise as a consequence of the environment, but rather pre-existing genetic variants are selected because they provide an advantage (meaning they are selected due to the benefits they offer in that environment).",
+    explanationSi: "පෙළට අනුව, අනුවර්තන ව්‍යුහාත්මක (structural), චර්යාත්මක (behavioral), හෝ කායික විද්‍යාත්මක (physiological) විය හැකිය. තවද, අනුවර්තනයන් සඳහා වන ජානමය පදනම පරිසරයේ බලපෑම නිසා ඇතිවන්නක් නොවන අතර, පූර්වයෙන් පැවති ජානමය ප්‍රභේදයන් එම පරිසරය තුළ වාසිදායක වන බැවින් ස්වභාවික වරණය මගින් තෝරා ගනු ලැබේ (එනම්, යම් පරිසරයක ඒවා ලබා දෙන වාසි නිසා තෝරා ගනු ලැබේ)."
+  }
+];
+
+/* ------------------------------------------------------------------ */
+/*  Reading: Reorder Paragraph (R-RP)                                 */
+/* ------------------------------------------------------------------ */
+
+export interface RpQuestion {
+  id: string;
+  paragraphs: string[]; // Correct order
+  difficulty: Difficulty;
+  explanationEn: string;
+  explanationSi: string;
+}
+
+export const RP_QUESTIONS: RpQuestion[] = [
+  {
+    id: "rp-1",
+    paragraphs: [
+      "In most countries it is only the government, through their central banks, who are permitted to issue currency.",
+      "But in Scotland three banks are still allowed to issue banknotes.",
+      "The first Scottish bank to do this was the Bank of Scotland.",
+      "When this bank was founded in 1695, Scots coinage was in short supply and of uncertain value, compared with English, Dutch, Flemish or French coin.",
+      "To face growth of trade it was deemed necessary to remedy this lack of an adequate currency."
+    ],
+    difficulty: "medium",
+    explanationEn: "The passage starts with a general statement about currency issuance globally. It then introduces the exception (Scotland), followed by historical details about the first Scottish bank to issue notes (Bank of Scotland in 1695), its circumstances (scarcity of coinage), and the subsequent action taken to remedy the currency deficit.",
+    explanationSi: "ඡේදය ආරම්භ වන්නේ ගෝලීය වශයෙන් මුදල් නිකුත් කිරීම පිළිබඳ පොදු ප්‍රකාශයකිනි. ඉන්පසු එය සුවිශේෂී අවස්ථාව (ස්කොට්ලන්තය) හඳුන්වා දෙයි, පසුව මුදල් නිකුත් කළ පළමු ස්කොට්ලන්ත බැංකුව (1695 දී ස්කොට්ලන්ත බැංකුව) පිළිබඳ ඓතිහාසික තොරතුරු, එහි තත්ත්වයන් (කාසි හිඟකම) සහ මුදල් හිඟයට පිළියම් සෙවීම සඳහා ගත් පියවර දක්වයි."
+  },
+  {
+    id: "rp-2",
+    paragraphs: [
+      "Halloween is a holiday celebrated each year on October 31.",
+      "It is related to an ancient Celtic festival where people lit bonfires and wore costumes to ward off ghosts.",
+      "Another historical connection to Halloween comes from the 8th Century when Pope Gregory proclaimed November 1st to be All Saints Day.",
+      "The two traditions eventually merged.",
+      "Thus Halloween evolved into an event incorporating the saints as well as ghosts and involving dressing up in scary costumes."
+    ],
+    difficulty: "medium",
+    explanationEn: "The sequence starts by introducing Halloween on October 31. The second sentence provides its connection to the ancient Celtic festival. The third sentence adds 'Another historical connection' (All Saints Day in the 8th century). The fourth sentence explains that 'The two traditions eventually merged', and the final sentence concludes with 'Thus' to summarize the modern holiday's elements.",
+    explanationSi: "ආරම්භක ඡේදය ඔක්තෝබර් 31 වන දින හැලොවීන් (Halloween) හඳුන්වා දෙයි. දෙවන වාක්‍යය පුරාණ කෙල්ටික් (Celtic) උත්සවය සමඟ එහි සම්බන්ධය දක්වයි. තෙවන වාක්‍යය 'තවත් ඓතිහාසික සම්බන්ධයක්' (8 වන සියවසේ සර්ව සාන්තුවරයන්ගේ දිනය) එක් කරයි. සිව්වන වාක්‍යය පැහැදිලි කරන්නේ 'මෙම සම්ප්‍රදායන් දෙක අවසානයේදී ඒකාබද්ධ වූ' බවයි, සහ අවසාන වාක්‍යය නවීන නිවාඩු දින අංග සාරාංශ කිරීම සඳහා 'Thus' (එබැවින්) යොදාගනිමින් නිගමනය කරයි."
+  }
+];
+
+
 
