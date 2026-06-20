@@ -4,6 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+import ScoreOverview from "@/components/wfd/ScoreOverview";
+import WordDiff from "@/components/wfd/WordDiff";
+import FeedbackPanel from "@/components/wfd/FeedbackPanel";
+import { scoreAnswer } from "@/lib/scoring";
+import { WFD_QUESTIONS } from "@/lib/questions";
+
+const MOCK_QUESTION = WFD_QUESTIONS[0];
+const MOCK_SCORE = scoreAnswer(MOCK_QUESTION.sentence, "The libary will be closed during the summer holiday.");
+
 /* ------------------------------------------------------------------ */
 /*  Intersection Observer hook for scroll-triggered animations         */
 /* ------------------------------------------------------------------ */
@@ -186,7 +195,66 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ============================================================ */}
+      {/*  TEACHER MODE SECTION                                        */}
+      {/* ============================================================ */}
+      <section className="landing-section bg-gray-50 px-6 py-20 lg:px-12">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          {/* Copy */}
+          <div className="stagger-1">
+            <h2 className="sinhala mb-6 text-3xl font-bold !leading-tight text-gray-900 lg:text-4xl lg:!leading-[1.2]">
+              ඔයා english වලින් PTE කොච්චර practice කරත්, pass වෙන එක අමාරුද?
+            </h2>
+            <p className="sinhala text-lg leading-relaxed text-gray-500">
+              ඔයා අතින් සිද්ධ වුණ වැරදි මොනවද කියලා අපේ platform එකෙන් හොයාගෙන, ඒවා improve කරගන්න tips ලබාගන්න. මේ හැමදේම සිංහලෙන්.
+            </p>
+          </div>
 
+          {/* Screenshot (Teacher Mode Component) */}
+          <div className="stagger-2 relative overflow-hidden rounded-2xl border border-gray-200/60 bg-white pt-6 px-6 pb-0 shadow-2xl shadow-gray-900/10 pointer-events-none select-none flex flex-col">
+            <div className="mb-6 flex items-center gap-3 border-b border-gray-100 pb-4 shrink-0">
+              <div className="flex gap-1.5">
+                <div className="h-3 w-3 rounded-full bg-red-400"></div>
+                <div className="h-3 w-3 rounded-full bg-amber-400"></div>
+                <div className="h-3 w-3 rounded-full bg-green-400"></div>
+              </div>
+              <span className="text-xs font-medium text-gray-400">Teacher Feedback Simulation</span>
+            </div>
+            
+            <div className="max-h-[650px] overflow-hidden pb-12">
+              <h2 className="text-lg font-bold tracking-tight text-gray-900">
+                Teacher feedback
+              </h2>
+
+              <div className="mt-4">
+                <ScoreOverview score={MOCK_SCORE} lang="si" />
+              </div>
+
+              {/* Sentence comparison */}
+              <div className="mt-6 border-t border-gray-200 pt-6">
+                <h3 className="sinhala text-sm font-semibold text-gray-900">
+                  වාක්‍ය විශ්ලේෂණය
+                </h3>
+                <div className="mt-3">
+                  <WordDiff score={MOCK_SCORE} lang="si" />
+                </div>
+              </div>
+
+              {/* Detailed explanation */}
+              <div className="mt-6">
+                <FeedbackPanel
+                  score={MOCK_SCORE}
+                  question={MOCK_QUESTION}
+                  lang="si"
+                />
+              </div>
+            </div>
+
+            {/* Fade out bottom to look like a screenshot mask */}
+            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-white/0 pointer-events-none"></div>
+          </div>
+        </div>
+      </section>
 
       {/* ============================================================ */}
       {/*  SOLUTION / USP                                              */}
