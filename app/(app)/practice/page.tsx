@@ -182,9 +182,9 @@ const CATEGORIES: Category[] = [
         shortName: "FIB-DD",
         description:
           "Drag words from the box and drop them into the correct blanks in the text.",
-        href: "#",
-        enabled: false,
-        questionCount: 0,
+        href: "/practice/reading/fib-dd",
+        enabled: true,
+        questionCount: 2,
       },
       {
         name: "Multiple Choice, Single Answer",

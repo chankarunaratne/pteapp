@@ -555,41 +555,39 @@ export default function RpSessionPage() {
       </div>
 
       {/* Action Buttons */}
-      <div className="mt-8 flex items-center justify-between border-t border-gray-200 pt-6">
-        <div className="flex items-center gap-3">
-          {phase === "question" ? (
-            <button
-              type="button"
-              disabled={isSubmitDisabled}
-              onClick={handleSubmit}
-              className={`rounded-xl px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all cursor-pointer ${
-                isSubmitDisabled
-                  ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-primary-600 hover:bg-primary-700 hover:shadow-md"
-              }`}
-            >
-              Submit
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleNext}
-              className="rounded-xl bg-primary-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-700 cursor-pointer"
-            >
-              {index + 1 >= RP_QUESTIONS.length ? "Finish Session" : "Next Question"}
-            </button>
-          )}
+      <div className="mt-8 flex items-center justify-end border-t border-gray-200 pt-6 gap-3">
+        {phase === "question" ? (
+          <button
+            type="button"
+            disabled={isSubmitDisabled}
+            onClick={handleSubmit}
+            className={`rounded-xl px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all cursor-pointer ${
+              isSubmitDisabled
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-primary-600 hover:bg-primary-700 hover:shadow-md"
+            }`}
+          >
+            Submit
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={handleNext}
+            className="rounded-xl bg-primary-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-700 cursor-pointer"
+          >
+            {index + 1 >= RP_QUESTIONS.length ? "Finish Session" : "Next Question"}
+          </button>
+        )}
 
-          {phase === "result" && (
-            <button
-              type="button"
-              onClick={handleRestart}
-              className="rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 cursor-pointer"
-            >
-              Try Again
-            </button>
-          )}
-        </div>
+        {phase === "result" && (
+          <button
+            type="button"
+            onClick={handleRestart}
+            className="rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 cursor-pointer"
+          >
+            Try Again
+          </button>
+        )}
       </div>
 
       {/* Teacher feedback panel */}
