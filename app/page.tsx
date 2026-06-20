@@ -196,9 +196,9 @@ export default function LandingPage() {
           {/* Section header */}
           <div className="stagger-1 mx-auto mb-14 max-w-2xl text-center">
             <h2 className="sinhala mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
-              සිංහලෙන් PTE practice කරන්න පුළුවන්{" "}
+              PTE සිංහලෙන් practice කරන්න පුළුවන්{" "}
               <span className="text-primary-600">
-                Sri Lanka වල එකම platform එක
+                එකම platform එක
               </span>
             </h2>
           </div>
