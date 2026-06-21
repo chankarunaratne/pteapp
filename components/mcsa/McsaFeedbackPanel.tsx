@@ -8,11 +8,13 @@ export default function McsaFeedbackPanel({
   explanationEn,
   explanationSi,
   lang = "si",
+  type = "listening",
 }: {
   score: McsaScoreResult;
   explanationEn: string;
   explanationSi: string;
   lang?: FeedbackLang;
+  type?: "reading" | "listening";
 }) {
   let headline = "";
   const tips: string[] = [];
@@ -20,7 +22,11 @@ export default function McsaFeedbackPanel({
   if (lang === "si") {
     if (score.isCorrect) {
       headline = "විශිෂ්ටයි! නිවැරදි පිළිතුර තෝරාගෙන තිබේ.";
-      tips.push("ඊළඟ ප්‍රශ්නයටත් මේ වගේම හොඳින් සවන් දෙන්න.");
+      tips.push(
+        type === "listening"
+          ? "ඊළඟ ප්‍රශ්නයටත් මේ වගේම හොඳින් සවන් දෙන්න."
+          : "ඊළඟ ප්‍රශ්නයටත් මේ වගේම හොඳින් අවධානය යොමු කරන්න."
+      );
     } else {
       headline = "කමක් නැහැ, අපි මේකෙන් ඉගෙන ගනිමු.";
       tips.push("පහතින් ඇති නිවැරදි පිළිතුර සහ පැහැදිලි කිරීම හොඳින් බලන්න.");

@@ -1,4 +1,4 @@
-import type { McsaQuestion } from "./questions";
+import type { McsaQuestion, RmcsaQuestion } from "./questions";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -30,7 +30,7 @@ export interface McsaScoreResult {
  * 0 if incorrect option is selected or no option selected.
  */
 export function scoreMcsaAnswer(
-  question: McsaQuestion,
+  question: McsaQuestion | RmcsaQuestion,
   selectedIndex: number | null
 ): McsaScoreResult {
   const optionFeedbacks: McsaOptionFeedback[] = question.options.map((option, index) => {

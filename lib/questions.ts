@@ -575,6 +575,61 @@ export const FIB_DD_QUESTIONS: FibDdQuestion[] = [
   }
 ];
 
+/* ------------------------------------------------------------------ */
+/*  Reading: Multiple-choice, Choose Single Answer (R-MCSA)           */
+/* ------------------------------------------------------------------ */
+
+export interface RmcsaQuestion {
+  id: string;
+  passage: string;
+  questionText: string;
+  options: string[];
+  correctIndex: number;
+  difficulty: Difficulty;
+  explanationSi: string;
+  explanationEn: string;
+}
+
+export const RMCSA_QUESTIONS: RmcsaQuestion[] = [
+  {
+    id: "rmcsa-1",
+    passage:
+      "In many ways Britten's most ambitious effort is the War Requiem of 1961, a flawed but still impressive work for chorus, soloists, and orchestra. It weaves together the traditional Latin Mass for the Dead with antiwar poems by Wilfrid Owen, a young officer killed in World War I. The point of War Requiem is how the words of the liturgical text are reinterpreted and often rendered hollow by the realities of death in war. In this work we see Britten's prodigal inconsistencies on display. For all its problems, the War Requiem will probably survive as one of our time's most impassioned indictments of war and its heroic myth.",
+    questionText: "Which of the following most accurately summarizes the opinion of the author in the text?",
+    options: [
+      "He finds the weaving together of the Latin Mass and antiwar poems to be quite effective.",
+      "He is critical of Britten's inconsistencies as observed in the War Requiem.",
+      "He admires the War Requiem of Britten but finds it far from perfect.",
+      "He questions whether Britten's work will endure."
+    ],
+    correctIndex: 2,
+    difficulty: "medium",
+    explanationEn:
+      "The author describes the War Requiem as 'a flawed but still impressive work' and concludes that 'For all its problems, the War Requiem will probably survive as one of our time's most impassioned indictments of war'. This indicates that he admires the work despite acknowledging its flaws and inconsistencies.",
+    explanationSi:
+      "කතුවරයා War Requiem කෘතිය 'වැරදි සහිත වුවත් තවමත් ආකර්ෂණීය නිර්මාණයක්' ලෙස විස්තර කරන අතර 'එහි සියලු ගැටලු මධ්‍යයේ වුවද, War Requiem අපේ කාලයේ යුද්ධයට එරෙහි වඩාත්ම ප්‍රබල චෝදනාවක් ලෙස පවතිනු ඇත' යනුවෙන් නිගමනය කරයි. මෙයින් ඇඟවෙන්නේ එහි ඇති අඩුපාඩු සහ නොගැලපීම් පිළිගනිමින්ම ඔහු එම කෘතිය අගය කරන බවයි."
+  },
+  {
+    id: "rmcsa-2",
+    passage:
+      "The exploration of space has always captured the human imagination, but the financial cost of such endeavors has repeatedly sparked intense political debate. Advocates argue that space exploration drives technological innovation, yielding spin-off technologies that benefit everyday life on Earth, from water purification systems to advanced medical imaging. Opponents, however, point to pressing terrestrial problems—such as poverty, climate change, and failing infrastructure—that require immediate funding. They argue that billions of dollars spent on interplanetary missions could be better utilized to solve issues that directly impact human well-being today. While public opinion remains divided, the growing involvement of private commercial enterprises in spaceflight is shifting the financial burden and introducing new dynamics to the debate.",
+    questionText: "What is the primary argument of the opponents of space exploration as described in the text?",
+    options: [
+      "Private commercial enterprises should not be allowed to participate in spaceflight.",
+      "The technological innovations from space exploration do not benefit everyday life.",
+      "The financial resources would be better spent addressing urgent problems on Earth.",
+      "Interplanetary missions are too dangerous for human astronauts."
+    ],
+    correctIndex: 2,
+    difficulty: "easy",
+    explanationEn:
+      "The text states that opponents point to 'pressing terrestrial problems—such as poverty, climate change, and failing infrastructure—that require immediate funding' and argue that money spent on space flight could be 'better utilized to solve issues that directly impact human well-being today.'",
+    explanationSi:
+      "අභ්‍යවකාශ ගවේෂණයට විරුද්ධ වන අය 'දුප්පත්කම, දේශගුණික විපර්යාස සහ අඩපණ වී ඇති යටිතල පහසුකම් වැනි ක්ෂණික ප්‍රතිපාදන අවශ්‍ය වන පෘථිවියේ පවතින ගැටලු' පෙන්වා දෙන අතර, අභ්‍යවකාශ චාරිකා සඳහා වැය කරන මුදල් 'අද මිනිසාගේ යහපැවැත්මට සෘජුවම බලපාන ගැටලු විසඳීමට වඩා හොඳින් භාවිතා කළ හැකි' බව තර්ක කරන බව පෙළෙහි සඳහන් වේ."
+  }
+];
+
+
 
 
 

@@ -191,9 +191,9 @@ const CATEGORIES: Category[] = [
         shortName: "MCSA",
         description:
           "Read a text and answer the multiple-choice question by selecting the single correct option.",
-        href: "#",
-        enabled: false,
-        questionCount: 0,
+        href: "/practice/reading/mcsa",
+        enabled: true,
+        questionCount: 2,
       },
     ],
   },
