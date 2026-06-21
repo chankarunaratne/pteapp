@@ -76,25 +76,41 @@ function FeatureCard({
   title,
   description,
   staggerClass,
+  href,
 }: {
   icon: string;
   title: string;
   description: string;
   staggerClass: string;
+  href?: string;
 }) {
-  return (
-    <div
-      className={`${staggerClass} rounded-2xl border border-gray-200/80 bg-white p-8 shadow-sm transition-shadow duration-300 hover:shadow-md`}
-    >
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-2xl">
+  const cardContent = (
+    <>
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-2xl transition-transform duration-300 group-hover:scale-110">
         {icon}
       </div>
-      <h3 className="sinhala mb-2 text-lg font-semibold text-gray-900">
+      <h3 className="sinhala mb-2 text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
         {title}
       </h3>
       <p className="sinhala text-sm leading-relaxed text-gray-500">
         {description}
       </p>
+    </>
+  );
+
+  const className = `${staggerClass} group rounded-2xl border border-gray-200/80 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary-200 block`;
+
+  if (href) {
+    return (
+      <Link href={href} className={className}>
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return (
+    <div className={className}>
+      {cardContent}
     </div>
   );
 }
@@ -263,42 +279,42 @@ export default function LandingPage() {
           {/* Section header */}
           <div className="stagger-1 mx-auto mb-14 max-w-2xl text-center">
             <h2 className="sinhala mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
-              PTE සිංහලෙන් practice කරන්න පුළුවන්{" "}
+              Exam එකට අවශ්‍ය හැමදේම <br />
               <span className="text-primary-600">
-                එකම platform එක
+                එක තැනක
               </span>
             </h2>
+            <p className="sinhala text-lg leading-relaxed text-gray-500">
+              Format එක ගැන ඉගෙන ගන්න, questions practice කරන්න, <br />
+              mock exams කරන්න.
+            </p>
           </div>
 
           {/* Feature cards */}
           <div className="grid gap-6 md:grid-cols-3">
             <FeatureCard
-              icon="🎧"
-              title="සිංහලෙන් Feedback"
-              description="ඔයාගේ answer submit කරාට පස්සේ, මොකද වැරදුනේ කියලා සිංහලෙන් පැහැදිලි කරනවා. ඉංග්‍රීසි වලින් තේරෙන්නැතුව struggle වෙන්න ඕනි නෑ."
+              icon="📖"
+              title="Format එක ගැන ඉගෙන ගන්න"
+              description="PTE exam එකේ structure එක, ප්‍රශ්න වර්ග සහ ලකුණු ලැබෙන විදිහ ගැන සම්පූර්ණ අවබෝධයක් ලබාගන්න."
               staggerClass="stagger-1"
+              href="/pte-format"
             />
             <FeatureCard
               icon="📝"
-              title="Real PTE Format"
-              description="Actual PTE exam එකේ format එකටම practice කරන්න පුළුවන්. Exam එකේ දවසට surprise එකක් නෑ."
+              title="Questions practice කරන්න"
+              description="Exam එකට නිතරම ලැබෙන real exam questions, Sinhala feedback සහ tips එක්කම practice කරන්න."
               staggerClass="stagger-2"
+              href="/practice"
             />
             <FeatureCard
-              icon="🆓"
-              title="නොමිලේ Practice"
-              description="දැන්ම practice කරන්න. Sign up ඕනි නෑ, payment ඕනි නෑ. ඔයාගේ PTE preparation අද පටන් ගන්න."
+              icon="🎯"
+              title="Mock exams කරන්න"
+              description="නියම exam එකේ time limit සහ environment එකටම අනුව mock exams කරලා ඔයාගේ මට්ටම test කරගන්න."
               staggerClass="stagger-3"
+              href="/mock-exam"
             />
           </div>
 
-          {/* Image below cards */}
-          <div className="stagger-4 mt-14">
-            <ImagePlaceholder
-              description="A close-up of a Sri Lankan person smiling while looking at their laptop screen. Soft glow of the screen visible. They look like they just understood something — relief and a small victory. Warm, optimistic lighting."
-              aspectRatio="16/7"
-            />
-          </div>
         </div>
       </section>
 
